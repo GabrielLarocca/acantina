@@ -1,0 +1,52 @@
+$primary: #0CA364;
+
+#authPage{
+	height: 100vh;
+
+	.logo{
+		width: 90px;
+		height: 30px;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		margin-bottom: 48px;
+	}
+
+	.background{
+		height: 100%;
+		width: 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		display: flex;
+		justify-content: center;
+		align-items:flex-end;
+		color: #fff;
+		padding: 15px;
+	}
+
+	.loginForm{
+		display: flex;
+		height: 100vh;
+		justify-content: center;
+		align-items: center;
+
+		.form-group{
+			p{
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 500;
+				font-size: 14px;
+				line-height: 20px;
+				color: #56585A;
+				margin-bottom: 8px;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.background{
+		display: none !important;
+	}
+}
