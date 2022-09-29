@@ -7,9 +7,6 @@ import Dashboard2FillIcon from 'remixicon-react/Dashboard2FillIcon';
 import LogoutBoxLineIcon from 'remixicon-react/LogoutBoxLineIcon';
 import { Link } from "react-router-dom";
 
-// import Header from "./header/Header";
-// import Footer from "./footer/Footer";
-
 export default function Layout({ children, title }) {
 	const pages = [
 		{ name: 'Dashboard', path: '/dashboard' },
@@ -70,7 +67,9 @@ export default function Layout({ children, title }) {
 			<div className="container-page-admin">
 				<h3>{title}</h3>
 
-				{children}
+				<div id={title}>
+					{children}
+				</div>
 			</div>
 		</div>
 	)

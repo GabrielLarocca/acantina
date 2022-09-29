@@ -17,8 +17,8 @@ class AuthController extends Controller {
 		$errors = array();
 
 		$validator = Validator::make($request->all(), [
-			'email' => 'required|email',
-			'password' => 'required'
+			'adm_email' => 'required|email',
+			'adm_password' => 'required'
 		]);
 
 		if ($validator->fails()) {
@@ -29,10 +29,10 @@ class AuthController extends Controller {
 			return response()->json(['errors' => $errors]);
 		}
 
-		$user = Admin::where('email', $request->email)->where('adm_active', 1)->first();
+		$user = Admin::where('adm_email', $request->adm_email)->first();
 
-		if (!$user || !Hash::check($request->password, $user->password)) {
-			return response()->json(['errors' => ['The provided credentials are incorrect.']], 401);
+		if (!$user || !Hash::check($request->adm_password, $user->adm_password)) {
+			return response()->json(['errors' => ['As credencias informadas estão incorretas.']], 401);
 		}
 
 		$token = $user->createToken('user', ['api:admin'])->plainTextToken;
@@ -40,28 +40,31 @@ class AuthController extends Controller {
 		return response()->json(['user' => $user, 'token' => $token]);
 	}
 
-	public function forgotPassword(Request $request) {
-		$this->validate($request, [
-			'email' => 'required|email',
+	public function register(Request $request) {
+		$errors = array();
+
+		$validator = Validator::make($request->all(), [
+			'adm_name' => 'required',
+			'adm_email' => 'required|email',
+			'adm_password' => 'required',
 		]);
 
-		$status = Password::broker('admins')->sendResetLink($request->only('email'));
+		if ($validator->fails()) {
+			foreach ($validator->errors()->getMessages() as $item) {
+				array_push($errors, $item[0]);
+			}
 
-		return response($status === Password::RESET_LINK_SENT ? (['status' => __($status)]) : (['email' => __($status)]));
-	}
+			return response()->json(['errors' => $errors]);
+		}
 
-	public function resetPassword(Request $request) {
-		$this->validate($request, [
-			'token' => 'required',
-			'password' => 'required|min:6|confirmed',
-		]);
+		$obj = new Admin;
 
-		Password::broker('admins')->reset($request->only('email', 'password', 'password_confirmation', 'token'), function ($user, $password) {
-			$user->password = bcrypt($password);
+		$obj->adm_name = $request->adm_name;
+		$obj->adm_email = $request->adm_email;
+		$obj->adm_password = bcrypt($request->adm_password);
 
-			$user->save();
+		$obj->save();
 
-			event(new PasswordReset($user));
-		});
+		return response()->json(['user' => $obj]);
 	}
 }

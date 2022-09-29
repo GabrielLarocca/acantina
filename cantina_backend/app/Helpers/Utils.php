@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
 class Utils {
-	
+
 	static public function addAttachment($file) {
 		$imageName = time() . "-" . rand(1000, 1000000) . '.' . $file->getClientOriginalExtension();
 

@@ -55,7 +55,7 @@ function AuthPage(props) {
 										error={Boolean(touched.password && errors.password)} />
 								</div>
 
-								<div className="kt-login__actions">
+								<div>
 									<button ref={parent} type="submit" disabled={isSubmitting} className={`btn btn-primary btn-elevate btnPrimario w-100`}>
 										Entrar
 
