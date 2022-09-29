@@ -15,7 +15,7 @@ import UsuariosIndex from "../pages/dashboard/usuarios/UsuariosIndex";
 const Routes = () => {
 	return (
 		<Switch>
-			{isAuthenticated() ?
+			{!isAuthenticated() ?
 				<Route exact path="/" element={<AuthPage />} />
 				:
 				(
