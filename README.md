@@ -16,45 +16,24 @@
 
 ###### administrator frontend
 
-Login screen on Desktop
-![Login screen](../assets/images/admin/loginScreenD.png)
+![Login screen](../assets/images/admin/loginScreenD.png "Login screen on Desktop")
 
-<br />
+![Login screen](../assets/images/admin/loginScreenM.png "Login screen on Mobile")
 
-Login screen on Mobile
-![Login screen](../assets/images/admin/loginScreenM.png)
-
-<br />
-
-Products Screen
-![Products screen](../assets/images/admin/produtosScreen.png)
-
-<br />
+![Products screen](../assets/images/admin/produtosScreen.png "Products Screen")
 
 ###### customer frontend
 
-Initial screen
-![Login screen](../assets/images/customer/initial.png)
 
-<br />
+![initial screen](../assets/images/customer/initial.png "Initial screen")
 
-Cart screen
-![Login screen](../assets/images/customer/cart.png)
+![cart screen](../assets/images/customer/cart.png "Cart screen")
 
-<br />
+![Products screen](../assets/images/customer/listProdutos.png "Products Screen")
 
-Products Screen
-![Products screen](../assets/images/customer/listProdutos.png)
+![Menu screen](../assets/images/customer/menu.png "Menu Screen")
 
-<br />
-
-Menu Screen
-![Products screen](../assets/images/customer/menu.png)
-
-<br />
-
-Product Screen
-![Products screen](../assets/images/customer/product.png)
+![Product screen](../assets/images/customer/product.png "Product Screen")
 
 ## 👨‍💻 Technologies
 
