@@ -14,30 +14,44 @@
 
 ## 📷 Gallery
 
-`administrator frontend`
+###### administrator frontend
 
 Login screen on Desktop
 ![Login screen](../assets/images/admin/loginScreenD.png)
 
+<br />
+
 Login screen on Mobile
 ![Login screen](../assets/images/admin/loginScreenM.png)
+
+<br />
 
 Products Screen
 ![Products screen](../assets/images/admin/produtosScreen.png)
 
-`customer frontend`
+<br />
+
+###### customer frontend
 
 Initial screen
 ![Login screen](../assets/images/customer/initial.png)
 
+<br />
+
 Cart screen
 ![Login screen](../assets/images/customer/cart.png)
+
+<br />
 
 Products Screen
 ![Products screen](../assets/images/customer/listProdutos.png)
 
+<br />
+
 Menu Screen
 ![Products screen](../assets/images/customer/menu.png)
+
+<br />
 
 Product Screen
 ![Products screen](../assets/images/customer/product.png)
