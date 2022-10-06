@@ -16,7 +16,11 @@
 
 ###### administrator frontend
 
+<p>Login screen on Desktop</p>
+
 ![Login screen](../assets/images/admin/loginScreenD.png "Login screen on Desktop")
+
+<p>Login screen on Mobile</p>
 
 ![Login screen](../assets/images/admin/loginScreenM.png "Login screen on Mobile")
 
