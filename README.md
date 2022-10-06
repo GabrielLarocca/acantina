@@ -15,9 +15,32 @@
 ## 📷 Gallery
 
 `administrator frontend`
-<!-- <img src="" width="300" height="" alt="imagens"> -->
+
+Login screen on Desktop
+![Login screen](../assets/images/admin/loginScreenD.png)
+
+Login screen on Mobile
+![Login screen](../assets/images/admin/loginScreenM.png)
+
+Products Screen
+![Products screen](../assets/images/admin/produtosScreen.png)
 
 `customer frontend`
+
+Initial screen
+![Login screen](../assets/images/customer/initial.png)
+
+Cart screen
+![Login screen](../assets/images/customer/cart.png)
+
+Products Screen
+![Products screen](../assets/images/customer/listProdutos.png)
+
+Menu Screen
+![Products screen](../assets/images/customer/menu.png)
+
+Product Screen
+![Products screen](../assets/images/customer/product.png)
 
 ## 👨‍💻 Technologies
 
