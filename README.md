@@ -24,18 +24,29 @@
 
 ![Login screen](../assets/images/admin/loginScreenM.png "Login screen on Mobile")
 
+<p>Products screen</p>
+
 ![Products screen](../assets/images/admin/produtosScreen.png "Products Screen")
 
 ###### customer frontend
 
+<p>initial screen</p>
 
 ![initial screen](../assets/images/customer/initial.png "Initial screen")
 
+<p>Cart screen</p>
+
 ![cart screen](../assets/images/customer/cart.png "Cart screen")
+
+<p>Products screen</p>
 
 ![Products screen](../assets/images/customer/listProdutos.png "Products Screen")
 
+<p>Menu screen</p>
+
 ![Menu screen](../assets/images/customer/menu.png "Menu Screen")
+
+<p>Product screen</p>
 
 ![Product screen](../assets/images/customer/product.png "Product Screen")
 
