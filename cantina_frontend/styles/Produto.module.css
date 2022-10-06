@@ -1,0 +1,143 @@
+.container {
+	padding: 0px 20px;
+}
+
+.voltarBtn {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	margin-top: 24px;
+	margin-left: 20px;
+}
+
+.voltarBtn p {
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	color: #FFF;
+	margin: 0;
+	margin-left: 12px;
+}
+
+.imagemProduto {
+	width: 100%;
+	height: 240px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+.imagemProduto:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, .5);
+}
+
+.titulo {
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 32px;
+	color: #0A1723;
+	margin: 32px 0 26px 0;
+}
+
+.descricaoProduto {
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	color: #384047;
+	margin: 0 0 16px 0;
+}
+
+.precoProduto {
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 30px;
+	color: #0CA364;
+	margin: 0;
+}
+
+.footer {
+	height: 180px;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	border-top: 1px solid #DCDDDE;
+	padding: 32px 20px 20px 20px;
+}
+
+.containerFooter {
+	display: flex;
+	justify-content: space-between;
+}
+
+.incrementar {
+	width: 128px;
+	height: 48px;
+	border: 1px solid #DCDDDE;
+	border-radius: 4px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.incrementar p {
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 30px;
+	text-align: center;
+	color: #1E252C;
+	margin: 0;
+}
+
+.incrementar svg {
+	color: #0CA364;
+	font-size: 20px;
+}
+
+.precoTotalFooter {
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 30px;
+	text-align: right;
+	color: #1E252C;
+	margin: 0;
+}
+
+.btnFooter {
+	margin-top: 32px;
+	width: 100%;
+	height: 48px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #0CA364;
+	border-radius: 4px;
+	border: none;
+	box-shadow: none;
+
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 20px;
+	text-align: center;
+	color: #FFFFFF;
+}

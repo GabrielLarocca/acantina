@@ -1,7 +1,5 @@
 import { actionTypes } from '../../app/store/ducks/auth.duck';
 
-export const isAuthenticated = () => localStorage.getItem('authToken') !== null;
-
 export function setupAxios(axios, store) {
 	axios.interceptors.request.use(config => {
 		const { auth: { authToken } } = store.getState();
@@ -104,3 +102,33 @@ export function setStorage(key, value, expires) {
 	}
 	return true;
 }
+
+export const formatBRL = value => {
+	const formatter = new Intl.NumberFormat('pt-BR', {
+		style: 'currency',
+		currency: 'BRL',
+		minimumFractionDigits: 2
+	});
+
+	value = formatter.format(value);
+
+	return value;
+};
+
+export const formatBRLInput = input => {
+	input.target.value = Number(input.target.value.toString().replace(/[^0-9-]/g, '')) / 10 ** 2;
+
+	input.target.value = formatBRL(input.target.value);
+
+	return input;
+};
+
+export const limparMoeda = (valor) => {
+	valor = valor.replace("R$", "");
+	valor = valor.replace(".", "");
+	valor = valor.replace(",", ".");
+	valor = valor.replace('/^\p{Z}+|\p{Z}+$/u', '');
+	valor = valor.trim();
+
+	return valor
+};

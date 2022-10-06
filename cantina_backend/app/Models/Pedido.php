@@ -7,27 +7,27 @@ use App\Helpers\S3Util;
 
 class Pedido extends Model {
 
-	protected $table = "pedido";
+	protected $table = "order";
 	protected $fillable = [
-		'ped_cupom_id',
-		'ped_data_retirada',
-		'ped_carrinho_id',
-		'ped_total',
-		'ped_usuario_id',
-		'ped_estado_pagamento',
-		'ped_estado_producao'
-
+		'ord_cupom_id',
+		'ord_withdrawal_date',
+		'ord_cart_id',
+		'ord_total',
+		'ord_user_id',
+		'ord_state_payment',
+		'ord_state_order',
+		'ord_nf'
 	];
 
 	public function usuario() {
-		return $this->belongsTo(Usuario::class, 'ped_usuario_id');
+		return $this->belongsTo(Usuario::class, 'ord_user_id');
 	}
 
 	public function carrinho() {
-		return $this->belongsTo(Carrinho::class, 'ped_carrinho_id');
+		return $this->belongsTo(Carrinho::class, 'ord_cart_id');
 	}
 
 	public function cupom() {
-		return $this->belongsTo(Cupom::class, 'ped_cupom_id');
+		return $this->belongsTo(Cupom::class, 'ord_cupom_id');
 	}
 }

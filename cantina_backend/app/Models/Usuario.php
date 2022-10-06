@@ -34,4 +34,8 @@ class Usuario extends Authenticatable {
 	public function photo() {
 		return $this->belongsTo(Arquivo::class, 'usu_id_photo');
 	}
+
+	public function carrinho() {
+		return $this->hasOne(Carrinho::class, 'car_user_id');
+	}
 }

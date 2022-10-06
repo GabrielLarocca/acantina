@@ -22,7 +22,7 @@ class ProdutoController extends Controller {
 	}
 
 	public function get(Request $request, $id) {
-		return response()->json(Produto::where(["pro_active" => 1, "id" => $id])->firstOrFail());
+		return response()->json(Produto::where(["pro_active" => 1, "id" => $id])->with('categoria')->firstOrFail());
 	}
 
 	public function store(Request $request) {
@@ -31,7 +31,8 @@ class ProdutoController extends Controller {
 		$validator = Validator::make($request->all(), [
 			'pro_name' => 'required',
 			'pro_description' => 'required',
-			'pro_price' => 'required'
+			'pro_price' => 'required',
+			'pro_category_id' => 'required'
 		]);
 
 		if ($validator->fails()) {
@@ -47,6 +48,7 @@ class ProdutoController extends Controller {
 		$obj->pro_name = $request->pro_name;
 		$obj->pro_description = $request->pro_description;
 		$obj->pro_price = $request->pro_price;
+		$obj->pro_category_id = $request->pro_category_id;
 		$obj->pro_active = 1;
 
 		/*if ($request->file('photo') != null) {

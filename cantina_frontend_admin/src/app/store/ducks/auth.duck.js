@@ -1,6 +1,5 @@
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import * as routerHelpers from "../../router/RouterHelpers";
 
 export const actionTypes = {
 	Login: "[Login] Action",
@@ -25,7 +24,6 @@ export const reducer = persistReducer({ storage, key: "app-auth", whitelist: ["u
 			}
 
 			case actionTypes.Logout: {
-				routerHelpers.forgotLastLocation();
 				return initialAuthState;
 			}
 

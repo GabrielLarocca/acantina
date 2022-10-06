@@ -7,6 +7,8 @@ import { setupAxios } from "./app/utils/utils";
 import "./index.css";
 import App from './App';
 
+// import "@fortawesome/fontawesome-free/css/all.min.css";
+
 const { PUBLIC_URL } = process.env;
 
 setupAxios(axios, store);

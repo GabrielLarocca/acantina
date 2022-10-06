@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\Utils;
+use App\Models\Carrinho;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,7 +21,7 @@ class UsuarioController extends Controller {
 	}
 
 	public function get(Request $request, $id) {
-		return response()->json(Usuario::where(["usr_active" => 1, "id" => $id])->firstOrFail());
+		return response()->json(Usuario::where(["usr_active" => 1, "id" => $id])->with('carrinho.produtos')->firstOrFail());
 	}
 
 	public function store(Request $request) {
@@ -47,13 +48,13 @@ class UsuarioController extends Controller {
 		$obj->password = bcrypt($request->password);
 		$obj->usr_active = 1;
 
-		/*if ($request->file('photo') != null) {
-			$attachment = Utils::addAttachment($request->file('photo'));
-
-			$obj->pro_image_id = $attachment->id;
-		}*/
-
 		$obj->save();
+
+		$cart = new Carrinho();
+
+		$cart->car_user_id = $obj->id;
+
+		$cart->save();
 
 		return response()->json($obj);
 	}

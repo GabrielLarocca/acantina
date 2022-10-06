@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Carrinho;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Notifications\PasswordResetNotificationApp;
@@ -75,9 +76,8 @@ class AuthController extends Controller {
 		$errors = array();
 
 		$validator = Validator::make($request->all(), [
-			'usu_email' => 'required|email',
-			'usu_senha' => 'required',
-			'usu_nome' => 'required'
+			'email' => 'required|email',
+			'password' => 'required'
 		]);
 
 		if ($validator->fails()) {
@@ -88,7 +88,7 @@ class AuthController extends Controller {
 			return response()->json(['errors' => $errors]);
 		}
 
-		$user = Usuario::where(['usu_email' => $request->usu_email, 'usu_ativo' => 1])->with('photo')->first();
+		$user = Usuario::where(['email' => $request->email, 'usr_active' => 1])->first();
 
 		if (!$user || !Hash::check($request->password, $user->password)) {
 			return response()->json(['errors' => ['As credencias estão erradas.']], 401);
@@ -98,21 +98,37 @@ class AuthController extends Controller {
 	}
 
 	public function register(Request $request) {
-		$this->validate($request, [
-			'usu_nome' => 'required',
-			'usu_email' => 'required',
-			'usu_senha' => 'required',
+		$errors = array();
+
+		$validator = Validator::make($request->all(), [
+			'usr_name' => 'required',
+			'email' => 'required|email',
+			'password' => 'required'
 		]);
 
-		$obj = new Usuario;
+		if ($validator->fails()) {
+			foreach ($validator->errors()->getMessages() as $item) {
+				array_push($errors, $item[0]);
+			}
 
-		$obj->usu_nome = $request->usu_nome;
-		$obj->usu_email = $request->usu_email;
-		$obj->usu_senha = bcrypt($request->usu_senha);
-		$obj->usu_ativo = 1;
+			return response()->json(['errors' => $errors]);
+		}
+
+		$obj = new Usuario();
+
+		$obj->usr_name = $request->usr_name;
+		$obj->email = $request->email;
+		$obj->password = bcrypt($request->password);
+		$obj->usr_active = 1;
 
 		$obj->save();
 
-		return $this->authenticateUser($obj, $firstLogin = true);
+		$cart = new Carrinho();
+
+		$cart->car_user_id = $obj->id;
+
+		$cart->save();
+
+		return $this->authenticateUser($obj);
 	}
 }

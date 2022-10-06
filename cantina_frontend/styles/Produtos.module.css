@@ -1,0 +1,79 @@
+.container {
+	padding: 24px 20px;
+}
+
+.voltarBtn {
+	display: flex;
+	align-items: center;
+}
+
+.voltarBtn p {
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	color: #384047;
+	margin: 0;
+	margin-left: 12px;
+}
+
+.categoriaTitle {
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 30px;
+	color: #0A1723;
+	margin: 24px 0;
+}
+
+.containerProdutos {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.cardProduto {
+	height: 194px;
+	width: 179px;
+	border-radius: 8px;
+	margin-bottom: 16px;
+}
+
+.imagemProduto {
+	width: 100%;
+	height: 96px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-bottom: 8px;
+}
+
+.nomeProduto {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 24px;
+	color: #0A1723;
+	margin: 8px 0px 4px 0px;
+}
+
+.descricaoProduto {
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 18px;
+	color: #384047;
+	margin: 0 0 8px 0;
+}
+
+.precoProduto {
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 18px;
+	color: #0CA364;
+	margin: 0;
+}

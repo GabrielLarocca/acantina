@@ -6,8 +6,10 @@ import User3FillIcon from 'remixicon-react/User3FillIcon';
 import Dashboard2FillIcon from 'remixicon-react/Dashboard2FillIcon';
 import LogoutBoxLineIcon from 'remixicon-react/LogoutBoxLineIcon';
 import { Link } from "react-router-dom";
+import * as auth from "../app/store/ducks/auth.duck";
+import { connect } from "react-redux";
 
-export default function Layout({ children, title }) {
+function Layout(props) {
 	const pages = [
 		{ name: 'Dashboard', path: '/dashboard' },
 		{ name: 'Pedidos', path: '/pedidos' },
@@ -38,6 +40,10 @@ export default function Layout({ children, title }) {
 		}
 	}
 
+	const logoutFunction = () => {
+		window.location.href = "/logout";
+	}
+
 	return (
 		<div className="layout-admin">
 			<div className="menu-left">
@@ -56,7 +62,7 @@ export default function Layout({ children, title }) {
 				<div className="leave-container">
 					<hr />
 
-					<div className={`navbar-item`}>
+					<div className={`navbar-item`} onClick={logoutFunction}>
 						<LogoutBoxLineIcon size={16} color='#A4A6A7' />
 
 						<p>Sair</p>
@@ -65,12 +71,14 @@ export default function Layout({ children, title }) {
 			</div>
 
 			<div className="container-page-admin">
-				<h3>{title}</h3>
+				<h3>{props.title}</h3>
 
-				<div id={title}>
-					{children}
+				<div id={props.title}>
+					{props.children}
 				</div>
 			</div>
 		</div>
 	)
 }
+
+export default connect(null, auth.actions)(Layout)

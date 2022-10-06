@@ -19,4 +19,8 @@ class Produto extends Model {
 	public function photo() {
 		return $this->belongsTo(Arquivo::class, 'pro_image_id');
 	}
+
+	public function categoria() {
+		return $this->belongsTo(Categoria::class, 'pro_category_id');
+	}
 }

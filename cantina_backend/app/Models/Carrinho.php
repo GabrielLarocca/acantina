@@ -7,12 +7,17 @@ use App\Helpers\S3Util;
 
 class Carrinho extends Model {
 
-	protected $table = "carrinho";
+	protected $table = "cart";
 	protected $fillable = [
-		'car_usuario_id',
+		'id',
+		'car_user_id',
 	];
 
 	public function usuario() {
-		return $this->belongsTo(Usuario::class, 'car_usuario_id');
+		return $this->belongsTo(Usuario::class, 'car_user_id');
+	}
+
+	public function produtos() {
+		return $this->hasMany(CarrinhoProduto::class, 'cart_id');
 	}
 }

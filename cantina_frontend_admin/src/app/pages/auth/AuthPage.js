@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { validateLogin } from "../../utils/Validation";
 import { Formik } from "formik";
@@ -13,16 +13,19 @@ import * as auth from "../../store/ducks/auth.duck";
 function AuthPage(props) {
 	const [parent] = useAutoAnimate()
 
-	const onSubmit = ({ values, setSubmitting, setStatus }) => {
+	const onSubmit = (values, setStatus, setSubmitting) => {
 		setSubmitting(true);
 
 		login(values.email, values.password).then(res => {
-			utils.setStorage('authToken', res.data.token, null);
-			props.login(res.data);
+			if (res.status) {
+				utils.setStorage('authToken', res.data.token, null);
+				props.login(res.data);
+				window.location.href = "/dashboard";
+			}
 		}).catch(() => {
-			setSubmitting(false);
-
 			setStatus("Usuário ou senha incorretos.");
+		}).finally(() => {
+			setSubmitting(false);
 		});
 	}
 

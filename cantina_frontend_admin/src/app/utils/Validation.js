@@ -50,54 +50,14 @@ export const validateRegister = (values, loginSocial) => {
 	return errors;
 };
 
-export const validateEditPerfil = (values) => {
+export const validateProduto = (values) => {
 	let map = new Map();
 
-	map.set('nome', 'Nome');
-	map.set('cpf', 'CPF');
-	map.set('email', 'E-mail');
-	map.set('celular', 'Celular');
-
-	if (values.senha != '' || values.confirm != '') {
-		map.set('senha', 'Senha antiga');
-		map.set('confirm', 'Senha nova');
-	}
-
-	let errors = createFormikValidation(map, values);
-
-	return errors;
-};
-
-export const validateVeiculo = (values) => {
-	let map = new Map();
-
-	map.set('tipoCarro', 'Tipo de carro');
-	map.set('marca', 'Marca');
-	map.set('modelo', 'Modelo');
-	map.set('placa', 'Placa');
-
-	let errors = createFormikValidation(map, values);
-
-	return errors;
-};
-
-export const validateForgot = values => {
-	let map = new Map();
-
-	map.set('email', 'E-mail');
-
-	let errors = createFormikValidation(map, values);
-
-	return errors;
-};
-
-export const validateCartao = values => {
-	let map = new Map();
-
-	map.set('numero', 'Número do cartão');
-	map.set('titular', 'Nome do titular');
-	map.set('vencimento', 'Vencimento');
-	map.set('cvv', 'CVV');
+	map.set('pro_name', 'Nome');
+	map.set('pro_description', 'Descrição');
+	map.set('pro_category_id', 'Categoria');
+	map.set('pro_price', 'Preço');
+	//map.set('pro_image', 'Imagem');
 
 	let errors = createFormikValidation(map, values);
 

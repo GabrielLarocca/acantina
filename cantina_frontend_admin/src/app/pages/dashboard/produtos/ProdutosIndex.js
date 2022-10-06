@@ -1,25 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import Layout from "../../../../layout/Layout";
-import AddFillIcon from 'remixicon-react/AddFillIcon';
-import { TextField } from "@material-ui/core";
+import BetterDataTable from "../../../components/BetterDataTable";
+import { Column } from 'primereact/column';
+import { getDataTable, remove } from "../../../crud/produto.crud";
 
 export default function ProdutosIndex() {
-	const [search, setSearch] = useState();
-
 	return (
 		<Layout title={'Produtos'}>
-			<div className="d-flex">
-				<button className={`btn btn-primary btn-elevate btnPrimario`}>
-					<AddFillIcon color="#fff" size={18} style={{ marginRight: 12 }} />
-					Adicionar produto
-				</button>
-
-				<div className="form-group d-flex flex-column" style={{ marginLeft: 16, flex: 1 }}>
-					<TextField type="text" variant='outlined' placeholder="Encontre um produto" margin="none" style={{ backgroundColor: '#fff', display: 'flex' }}
-						onChange={({ currentTarget }) => setSearch(currentTarget.value)} value={search} />
-				</div>
-
-			</div>
+			<BetterDataTable btnTitle="produto" fetchEvent={getDataTable} crudButtons={true} crudUrl={"/produtos"} idRow={`id`} deleteHandler={remove} noShow>
+				<Column field="id" header="ID" />
+				<Column field="pro_name" header="Nome" />
+				<Column field="pro_description" header="Descrição" />
+				<Column field="created_at_format" header="Criado em" />
+				<Column field="updated_at_format" header="Atualizado em" />
+			</BetterDataTable>
 		</Layout>
 	)
 };

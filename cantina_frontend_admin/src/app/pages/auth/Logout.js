@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
+import React, { Component } from "react";
 import * as auth from "../../store/ducks/auth.duck";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-// import { LayoutSplashScreen } from "../../../_metronic";
+import { Navigate } from "react-router-dom";
 
-export default function Logout() {
-	useEffect(() => {
-		// const { hasAuthToken } = this.props;
+class Logout extends Component {
+	componentDidMount() {
+		this.props.logout();
+	}
 
-		// dispatch(logout());
-	}, [])
+	render() {
+		const { hasAuthToken } = this.props;
 
-	// return hasAuthToken ? <LayoutSplashScreen /> : <Redirect to="/auth" />;
+		return hasAuthToken ? <Navigate to="/dashboard" /> : <Navigate to="/" />;
+	}
 }
+
+export default connect(({ auth }) => ({ hasAuthToken: Boolean(auth.authToken) }), auth.actions)(Logout);

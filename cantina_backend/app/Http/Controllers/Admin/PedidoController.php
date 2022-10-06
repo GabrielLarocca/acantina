@@ -4,66 +4,60 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Exercise;
-use App\Models\ExerciseActivity;
 use App\Helpers\Utils;
+use App\Models\Carrinho;
+use App\Models\Pedido;
+use App\Models\Usuario;
+use Illuminate\Support\Facades\Log;
 
-class ExerciseController extends Controller {
+class PedidoController extends Controller {
 	public function simpleList(Request $request) {
-		return response()->json(Exercise::where(["exe_active" => 1])->get());
+		return response()->json(Pedido::where(["exe_active" => 1])->get());
 	}
 
 	public function list(Request $request) {
-		$columnsToFilter = ['exe_pressure', 'exe_calories', 'exe_limb', 'exe_mode'];
+		$columnsToFilter = ['ord_cupom_id', 'ord_withdrawal_date', 'ord_cart_id', 'ord_total', 'ord_user_id', 'ord_state_payment', 'ord_state_order', 'ord_nf'];
+
+		$with  = ['usuario', 'carrinho', 'cupom'];
 
 		$wheres = array(
-			'exe_id_user' => $request->user()->id
+			'ord_user_id' => $request->user()->id
 		);
 
-		return response()->json(["data" => Utils::createDataTableResult($request, Exercise::class, $wheres, $columnsToFilter)]);
+		return response()->json(["data" => Utils::createDataTableResult($request, Pedido::class, $wheres, $columnsToFilter, null, null, null, $with)]);
 	}
 
 	public function get(Request $request, $id) {
-		return response()->json(Exercise::where(["exe_active" => 1, "id" => $id])->with('image', 'activities.video')->firstOrFail());
+		return response()->json(Pedido::where(["id" => $id])->with('usuario', 'carrinho', 'cupom')->firstOrFail());
 	}
 
 	public function store(Request $request) {
 		$this->validate($request, [
-			'exe_name' => 'required',
-			'exe_duration_time_minutes' => 'required',
-			'exe_type' => 'required',
-			'exe_instructions' => 'required',
-			'exe_equipament' => 'required',
-			'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:1024',
-			'activities' => 'required|array|min:1'
+			// 'ord_withdrawal_date' => 'required',
+			// 'ord_cart_id' => 'required',
+			// 'ord_user_id' => 'required',
+			// 'ord_cupom_id' => 'required',
+			// 'ord_state_payment' => 'required',
+			// 'ord_state_order' => 'required',
 		]);
 
-		$obj = new Exercise;
+		$obj = new Pedido;
 
-		$obj->exe_name = $request->exe_name;
-		$obj->exe_duration_time_minutes = $request->exe_duration_time_minutes;
-		$obj->exe_type = $request->exe_type;
-		$obj->exe_instructions = $request->exe_instructions;
-		$obj->exe_equipament = $request->exe_equipament;
-		$obj->exe_faq = $request->exe_faq;
-		$obj->exe_active = 1;
+		$q = Carrinho::where(["car_user_id" =>  $request->ord_user_id])->firstOrFail();
 
-		$file = Utils::addAttachment($request->thumbnail);
+		Log::info($q);
 
-		$obj->exe_id_image = $file->id;
+		// $obj->ord_cupom_id = $request->ord_cupom_id;
+		// $obj->ord_withdrawal_date = $request->ord_withdrawal_date;
+		// $obj->ord_cart_id = $request->ord_cart_id;
+		// $obj->ord_user_id = $request->ord_user_id;
+		// $obj->ord_state_payment = $request->ord_state_payment;
+		// $obj->ord_state_order = $request->ord_state_order;
+		// $obj->ord_nf = $request->ord_nf;
+
+		// $file = Utils::addAttachment($request->thumbnail);
 
 		$obj->save();
-
-		foreach ($request->activities as $act) {
-			$eac = new ExerciseActivity;
-
-			$eac->exa_id_exercise = $obj->id;
-			$eac->exa_name = $act["exa_name"];
-			$eac->exa_difficulty_level = $act["exa_difficulty_level"];
-			$eac->exa_id_video = $act["exa_id_video"];
-
-			$eac->save();
-		}
 
 		return response()->json($obj);
 	}
