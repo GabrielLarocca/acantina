@@ -1,111 +1,132 @@
 import Head from 'next/head'
-import styles from '../styles/Header.module.css'
-
+import { useSelector } from "react-redux";
 import { RiShoppingCart2Fill, RiMenuFill, RiCloseFill } from 'react-icons/ri';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import { getCarrinho } from '../crud/carrinho';
+import { deleteItemCarrinho, getCarrinho } from '../store/ducks/carrinho';
+import { slide as Menu } from 'react-burger-menu'
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2'
+import { formatBRL } from '../helpers/validation';
+
+import styles from '../styles/Header.module.css'
+import { setLogout } from '../store/ducks/user';
+import { useMediaQuery } from 'react-responsive';
+import Link from 'next/link';
 
 export default function Header(props) {
 	const [modalCarrinho, setModalCarrinho] = useState(false);
 	const [menu, setMenu] = useState(false);
-	const [carrinho, setCarrinho] = useState({});
+	const [carrinho, setCarrinho] = useState([]);
 	const [selected, setSelected] = useState('home');
+	const [loading, setLoading] = useState(true);
+	const [total, setTotal] = useState(0);
+
+	const router = useRouter();
+	const dispatch = useDispatch();
+
+	const { user } = useSelector((state) => state.user);
+	const isMobile = useMediaQuery({ query: "(max-width: 991px)" });
 
 	useEffect(() => {
-		// getCarrinho().then((res) => {
-		// if(res.status == 200){
-		// setCarrinho(res.data);
-		// }
-		// }).catch(({response}) => {
-		// if(response.data.errors[0]){
+		if (user) {
+			listCart();
+		}
+	}, [props.refreshCart]);
 
-		// }
-		// })
-
-		setCarrinho({
-			total: 35,
-			produtos: [
-				{
-					id: 1,
-					imagem: '/test/image1.png',
-					nome: 'X-Salada',
-					descricao: 'Pão, frango desfiado com molho de iogurte, tomate fatiado, alface, picles, milho, maionese de alho e queijo mussarela.',
-					preco: 15.00,
-					quantidade: 2
+	const listCart = () => {
+		getCarrinho().then((res) => {
+			if (res?.status == 200) {
+				if (res.data.errors) {
+					return Swal.fire('Ops!', res?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+				} else {
+					setCarrinho(res.data.data);
+					setTotal(res.data.total);
 				}
-			]
-		})
-	}, [])
+			}
+		}).catch(({ response }) => {
+			return Swal.fire('Ops!', response?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+		});
+	}
+
+	const handleDeleteItem = (itemId) => {
+		deleteItemCarrinho(itemId).then((res) => {
+			if (res?.status == 200) {
+				if (res.data.errors) {
+					return Swal.fire('Ops!', res?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+				} else {
+					listCart();
+				}
+			}
+		}).catch(({ response }) => {
+			return Swal.fire('Ops!', response?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+		}).finally(() => {
+			setLoading(false);
+		});
+	}
+
+	const logout = () => {
+		dispatch(setLogout());
+
+		router.reload();
+	}
 
 	const ProdutoCard = ({ produto }) => (
 		<div className={styles.cardCarrinho}>
-			<div className={styles.imagemCarrinho} style={{ backgroundImage: `url(${produto.imagem})` }} />
+			<div className={styles.imagemCarrinho} style={produto.produto?.imagem ? { backgroundImage: `url(${produto.produto?.imagem})` } : {}} />
 
 			<div className={styles.infoCarrinho}>
-				<p className={styles.nomeCarrinho}>{produto.nome}</p>
-				<p className={styles.quantidadeCarrinho}>{produto.quantidade}  {produto.quantidade > 1 ? 'unidades' : 'unidade'}</p>
-				<p className={styles.precoCarrinho}>R$ {produto.preco}</p>
+				<p className={styles.nomeCarrinho}>{produto.produto?.pro_name}</p>
+				<p className={styles.quantidadeCarrinho}>{produto.quantity}  {produto.quantity > 1 ? 'unidades' : 'unidade'}</p>
+				<p className={styles.precoCarrinho}>{formatBRL(produto.produto?.pro_price)}</p>
 			</div>
 
-			<div>
+			<div onClick={() => handleDeleteItem(produto?.product_id)}>
 				<RiCloseFill size={20} color={'#787A7C'} />
 			</div>
 		</div>
 	)
 
-	const ModalCarrinho = () => (
-		<Modal dialogClassName="modalCarrinho" show={modalCarrinho} onHide={() => setModalCarrinho(false)}>
-			<div className={styles.headerModalCarrinho}>
-				<p>Carrinho</p>
-
-				<RiCloseFill color="#FFF" size={20} onClick={() => setModalCarrinho(false)} />
-			</div>
-
-			{carrinho?.produtos?.map((produto, index) => (
-				<ProdutoCard produto={produto} key={index} />
-			))}
-
-			<footer className={styles.footer}>
-				<div className={styles.containerFooter}>
-					<p>Subtotal</p>
-
-					<p className={styles.precoTotalFooter}>R$ {carrinho.total}</p>
-				</div>
-
-				<button className={styles.btnFooter}>
-					Finalizar pedido
-				</button>
-			</footer>
-		</Modal>
-	)
-
 	const MenuLateral = () => (
-		<Modal fullscreen scrollable={false} dialogClassName="modalMenu" show={menu} onHide={() => setMenu(false)}>
-			<header style={{ height: 82 }} className={styles.header}>
-				<RiCloseFill color="#FFF" size={20} onClick={() => setMenu(false)} />
-
-				<Image width={90} height={30} src="/images/ACantina_logoWhite.svg" alt='logo da loja' />
-
-				<RiShoppingCart2Fill color='#FFF' size={20} onClick={() => { setModalCarrinho(true); setMenu(false) }} />
-			</header>
-
-			<div className={styles.menuLateral}>
-				<div className={selected == 'home' ? styles.selectedItemLateral : styles.itemLateral}>
+		<Menu isOpen={menu} onClose={() => setMenu(false)}>
+			<Link href={'/'}>
+				<div className={router.route == '/' ? styles.selectedItemLateral : styles.itemLateral}>
 					Início
 				</div>
+			</Link>
 
-				<div className={[styles.itemLateral]}>
+			<Link href={'/pedidos'}>
+				<div className={router.route.includes('pedidos') ? styles.selectedItemLateral : styles.itemLateral}>
 					Seus Pedidos
 				</div>
+			</Link>
 
-				<div className={[styles.itemLateral]}>
+			<Link href={'/perfil'}>
+				<div className={router.route.includes('perfil') ? styles.selectedItemLateral : styles.itemLateral}>
 					Perfil
 				</div>
+			</Link>
+
+			<div className={styles.itemLateral} onClick={logout}>
+				Sair
 			</div>
-		</Modal>
+		</Menu>
 	)
+
+	const openCart = () => {
+		if (user) {
+			setModalCarrinho(true);
+			listCart();
+		} else {
+			router.push(`/auth`);
+		}
+	}
+
+	const handleFinalizarPedido = () => {
+		router.push(`/pagamento`);
+	}
 
 	return (
 		<>
@@ -115,15 +136,81 @@ export default function Header(props) {
 
 			<MenuLateral />
 
-			<header className={styles.header}>
-				<RiMenuFill color="#FFF" size={20} onClick={() => setMenu(true)} />
+			<header id="header" className={styles.header}>
+				{!isMobile ?
+					<div className={styles.itemsHeader}>
+						<Link href={'/'}>
+							<p className={router.route == '/' ? styles.selectedHeader : {}}>
+								Início{console.log(router)}
+							</p>
+						</Link>
+
+						<Link href={'/pedidos'}>
+							<p className={router.route.includes('pedidos') ? styles.selectedHeader : {}}>
+								Seus pedidos
+							</p>
+						</Link>
+
+						<Link href={'/perfil'}>
+							<p className={router.route.includes('perfil') ? styles.selectedHeader : {}}>
+								Perfil
+							</p>
+						</Link>
+					</div>
+					:
+					menu ?
+						<RiCloseFill color="#FFF" size={20} onClick={() => setMenu(!menu)} />
+						:
+						<RiMenuFill color="#FFF" size={20} onClick={() => setMenu(!menu)} />
+				}
 
 				<Image width={90} height={30} src="/images/ACantina_logoWhite.svg" alt='logo da loja' />
 
-				<RiShoppingCart2Fill color='#FFF' size={20} onClick={() => setModalCarrinho(true)} />
+				<div onClick={openCart} className={styles.containerItemOnCart}>
+					<RiShoppingCart2Fill color='#FFF' size={20} />
+
+					{carrinho.length > 0 && (
+						<div>
+							<p>{carrinho.length}</p>
+						</div>
+					)}
+
+				</div>
 			</header>
 
-			<ModalCarrinho />
+			<Modal dialogClassName="modalCarrinho" show={modalCarrinho} onHide={() => setModalCarrinho(false)}>
+				<div className={styles.headerModalCarrinho}>
+					<p>Carrinho</p>
+
+					<RiCloseFill color="#FFF" size={20} onClick={() => setModalCarrinho(false)} />
+				</div>
+
+
+				{carrinho?.length > 0 ?
+					<div className={styles.containerCarrinho}>
+						{carrinho?.map((produto, index) =>
+							<ProdutoCard produto={produto} key={index} />
+						)}
+					</div>
+					:
+					<div className={styles.containerNoProducts}>
+						<img src={"/images/addCart.png"} width={100} height={100} />
+						<p>Não há produtos cadastrados</p>
+					</div>
+				}
+
+				<footer className={styles.footer}>
+					<div className={styles.containerFooter}>
+						<p>Subtotal</p>
+
+						<p className={styles.precoTotalFooter}>{formatBRL(total)}</p>
+					</div>
+
+					<button onClick={handleFinalizarPedido} disabled={carrinho?.produtos?.length == 0} className={styles.btnFooter}>
+						Finalizar pedido
+					</button>
+				</footer>
+			</Modal>
 		</>
 	)
 }

@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\CarrinhoController;
+use App\Http\Controllers\Web\CategoriaController;
+use App\Http\Controllers\Web\ProdutosController;
+use App\Http\Controllers\Web\PedidoController;
 
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\ProdutoController as AdminProdutoController;
@@ -29,19 +32,25 @@ Route::group(['prefix' => 'web'], function () {
 	Route::post('/forgot-password', [AuthController::class, 'sendEmail']);
 	Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
+	Route::post('/categoria/list', [CategoriaController::class, 'list']);
+
+	Route::group(['prefix' => 'produtos'], function () {
+		Route::post('/list', [ProdutosController::class, 'list']);
+		Route::get('/{id}', [ProdutosController::class, 'get']);
+	});
+
 	Route::group(['middleware' => ['auth:sanctum', 'user']], function () {
 		/*authenticated routes*/
 		Route::group(['prefix' => 'pedido'], function () {
-			// Route::post('/', [PedidoController::class, 'store']);
-			// Route::post('/list', [PedidoController::class, 'list']);
-			// Route::get('/{id}', [PedidoController::class, 'get']);
-			// Route::delete('/{id}', [PedidoController::class, 'destroy']);
+			Route::post('/', [PedidoController::class, 'store']);
+			Route::post('/list', [PedidoController::class, 'list']);
+			Route::get('/{id}', [PedidoController::class, 'get']);
+			Route::delete('/{id}', [PedidoController::class, 'destroy']);
 		});
 
 		Route::group(['prefix' => 'carrinho'], function () {
 			Route::post('/', [CarrinhoController::class, 'store']);
 			Route::post('/list', [CarrinhoController::class, 'list']);
-			Route::get('/{id}', [CarrinhoController::class, 'get']);
 			Route::delete('/{id}', [CarrinhoController::class, 'destroy']);
 		});
 	});

@@ -1,29 +1,41 @@
 import Header from '../../components/Header'
 import styles from '../../styles/Produto.module.css'
 import { RiArrowLeftSLine } from 'react-icons/ri';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getProdutos } from '../../crud/produtos';
+import { getProduto } from '../../store/ducks/produtos';
 import { RiAddFill, RiSubtractFill } from 'react-icons/ri'
+import { formatBRL } from '../../helpers/validation';
+import { useSelector } from 'react-redux';
+import { storeCarrinho } from '../../store/ducks/carrinho';
+import Swal from 'sweetalert2'
+import { useMediaQuery } from "react-responsive";
 
 export default function Produtos() {
-	const { query, back } = useRouter();
+	const { query, back, push } = useRouter();
+	const { user } = useSelector((state) => state.user);
+
+	const isMobile = useMediaQuery({ query: "(max-width: 991px)" });
 
 	const [produto, setProduto] = useState({});
 	const [quantidade, setQuantidade] = useState(1);
+	const [loading, setLoading] = useState(true);
+	const [refreshCart, setRefreshCart] = useState(0);
 
 	useEffect(() => {
-		//getProduto(router.pathname.params[0]).then(() => { }).catch(() => { });
-		setProduto(
-			{
-				id: 1,
-				imagem: '/test/image1.png',
-				nome: 'X-Salada',
-				descricao: 'Pão, frango desfiado com molho de iogurte, tomate fatiado, alface, picles, milho, maionese de alho e queijo mussarela.',
-				preco: 15.00
-			},
-		)
+		getProduto(query?.id).then((res) => {
+			if (res?.status == 200) {
+				if (res.data.errors) {
+					return Swal.fire('Ops!', res?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+				} else {
+					setProduto(res.data);
+				}
+			}
+		}).catch(({ response }) => {
+			return Swal.fire('Ops!', response?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+		}).finally(() => {
+			setLoading(false);
+		});
 	}, []);
 
 	const handleQuantidade = (adicionar) => {
@@ -34,45 +46,86 @@ export default function Produtos() {
 		}
 	}
 
+	const handleAddCart = () => {
+		if (user) {
+			storeCarrinho({ product_id: query?.id, quantity: quantidade }).then((res) => {
+				if (res?.status == 200) {
+					if (res.data.errors) {
+						return Swal.fire('Ops!', res?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+					} else {
+						setRefreshCart(prev => prev + 1);
+						return Swal.fire('Ok!', 'Produto adicionado ao carrinho!', 'success');
+					}
+				}
+			}).catch(({ response }) => {
+				return Swal.fire('Ops!', response?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+			});
+		} else {
+			push(`/auth`);
+		}
+	}
+
+	const ReturnButton = () => (
+		<div onClick={back} className={styles.voltarBtn}>
+			<RiArrowLeftSLine color='#FFF' size={20} />
+			<p>Voltar</p>
+		</div>
+	)
+
+	const Incrementar = () => (
+		<div className={styles.containerFooter}>
+			<div className={styles.incrementar}>
+				<RiSubtractFill onClick={() => handleQuantidade(false)} />
+
+				<p>{quantidade}</p>
+
+				<RiAddFill onClick={() => handleQuantidade(true)} />
+			</div>
+
+			<p className={styles.precoTotalFooter}>{formatBRL(produto?.pro_price * quantidade)}</p>
+		</div>
+	)
+
 	return (
-		<>
-			<Header />
+		<div className={styles.containerGeral}>
+			<Header refreshCart={refreshCart} />
 
 			{produto ? (
-				<>
-					<div onClick={back} className={styles.imagemProduto} style={{ backgroundImage: `url(${produto.imagem})` }}>
-						<div className={styles.voltarBtn}>
-							<RiArrowLeftSLine color='#FFF' size={20} />
-							<p>Voltar</p>
-						</div>
-					</div>
+				<div className={styles.containerDesk}>
+					<ReturnButton />
+
+					<div className={styles.imagemProduto} style={produto.imagem ? { backgroundImage: `url(${produto.imagem})` } : {}} />
 
 					<div className={styles.container}>
-						<h1 className={styles.titulo}>{produto?.nome}</h1>
-						<p className={styles.descricaoProduto}>{produto?.descricao}</p>
-						<p className={styles.precoProduto}>R$ {produto?.preco}</p>
-					</div>
-
-					<footer className={styles.footer}>
-						<div className={styles.containerFooter}>
-							<div className={styles.incrementar}>
-								<RiSubtractFill onClick={() => handleQuantidade(false)} />
-
-								<p>{quantidade}</p>
-
-								<RiAddFill onClick={() => handleQuantidade(true)} />
-							</div>
-
-							<p className={styles.precoTotalFooter}>R$ {produto.preco * quantidade}</p>
+						<div>
+							<h1 className={styles.titulo}>{produto?.pro_name}</h1>
+							<p className={styles.descricaoProduto}>{produto?.pro_description}</p>
+							<p className={styles.precoProduto}>{formatBRL(produto?.pro_price)}</p>
 						</div>
 
-						<button className={styles.btnFooter}>
-							Adicionar ao carrinho
-						</button>
-					</footer>
-				</>
-			) : <></>}
 
-		</>
+						{!isMobile && (
+							<div>
+								<Incrementar />
+
+								<button className={styles.btnFooter} onClick={handleAddCart}>
+									Adicionar ao carrinho
+								</button>
+							</div>
+						)}
+					</div>
+
+					{isMobile && (
+						<footer className={styles.footer}>
+							<Incrementar />
+
+							<button className={styles.btnFooter} onClick={handleAddCart}>
+								Adicionar ao carrinho
+							</button>
+						</footer>
+					)}
+				</div>
+			) : <></>}
+		</div>
 	)
 }

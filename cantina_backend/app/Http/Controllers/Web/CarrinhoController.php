@@ -11,6 +11,7 @@ use App\Models\CarrinhoProduto;
 use App\Models\User;
 use Illuminate\Container\Container;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Log;
 
 class CarrinhoController extends Controller {
 
@@ -54,65 +55,20 @@ class CarrinhoController extends Controller {
 
 	public function list(Request $request) {
 		$carrinho = Carrinho::where(["car_user_id" => $request->user()->id])->firstOrFail();
-		$carrinhoProdutos = CarrinhoProduto::where(["cart_id" => $carrinho->id])->with('produto');
+		$carrinhoProdutos = CarrinhoProduto::where(["cart_id" => $carrinho->id])->with('produto')->get();
+		$somaTotalCarrinho = 0;
 
-		$currentPage = $request->page + 1;
-		$rows = 20;
+		foreach ($carrinhoProdutos as $product) {
+			$totalValue = number_format($product->produto->pro_price * $product->quantity, 2);
 
-		Paginator::currentPageResolver(function () use ($currentPage) {
-			return $currentPage;
-		});
+			$product->totalPrice = $totalValue;
+		}
 
-		$carrinhoProdutos = $carrinhoProdutos->paginate($rows);
+		foreach ($carrinhoProdutos as $product) {
+			$somaTotalCarrinho = number_format($somaTotalCarrinho + $product->totalPrice, 2);
+		}
 
-		return response()->json($carrinhoProdutos);
-	}
-
-	public function update(Request $request, $id) {
-		// $errors = array();
-
-		// $validator = Validator::make($request->all(), [
-		// 	'usr_name' => 'required',
-		// 	'email' => 'required|email|unique:users,email,' . $id,
-		// 	'usr_phone' => 'required|numeric'
-		// ]);
-
-		// if ($validator->fails()) {
-		// 	foreach ($validator->errors()->getMessages() as $item) {
-		// 		array_push($errors, $item[0]);
-		// 	}
-
-		// 	return response()->json(['errors' => $errors], 422);
-		// }
-
-		// $patient = TherapistPatient::with('patient')->where(['thp_id_therapist' => $request->user()->id, 'thp_id_patient' => $id])->firstOrFail();
-		// $usr = User::where('id', $patient->patient->id)->firstOrFail();
-
-		// if ($request->file('usr_photo') != null) {
-		// 	$validator = Validator::make($request->all(), [
-		// 		'usr_photo' => 'required|mimes:jpeg,jpg,png|max:10240',
-		// 	]);
-
-		// 	if ($validator->fails()) {
-		// 		foreach ($validator->errors()->getMessages() as $item) {
-		// 			array_push($errors, $item[0]);
-		// 		}
-
-		// 		return response()->json(['errors' => $errors], 422);
-		// 	}
-
-		// 	$attachment = Utils::addAttachment($request->file('usr_photo'));
-
-		// 	$usr->usr_id_photo = $attachment->id;
-		// }
-
-		// $usr->usr_name = $request->usr_name;
-		// $usr->email = $request->email;
-		// $usr->usr_phone = $request->usr_phone;
-
-		// $usr->save();
-
-		// return response()->json($usr);
+		return response()->json(["total" => $somaTotalCarrinho, "data" => $carrinhoProdutos]);
 	}
 
 	public function destroy(Request $request, $id) {

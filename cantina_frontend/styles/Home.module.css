@@ -5,6 +5,7 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	margin-bottom: 24px;
+	background-image: url('/images/Banner.svg');
 }
 
 .container {
@@ -32,4 +33,22 @@
 	line-height: 24px;
 	color: #1E252C;
 	margin: 0;
+}
+
+@media screen and (min-width: 992px) {
+	.containerBanner {
+		background-image: url('/images/BannerDesktop.png');
+		height: 280px;
+	}
+
+	.containerBtns {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		gap: 12px;
+		row-gap: 16px;
+	}
+
+	.buttonInicial {
+		margin-bottom: 0;
+	}
 }
