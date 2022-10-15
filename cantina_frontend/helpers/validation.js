@@ -31,19 +31,33 @@ export const validateLogin = values => {
 	return errors;
 };
 
-export const validateRegister = (values, loginSocial) => {
+export const validateRegister = values => {
 	let map = new Map();
 
-	map.set('nome', 'Nome');
-	map.set('cpf', 'CPF');
+	map.set('usr_name', 'Nome');
 	map.set('email', 'E-mail');
-	map.set('celular', 'Celular');
-	map.set('senha', 'Senha');
+	map.set('password', 'Senha');
 
-	// if (!loginSocial) {
-	// 	map.set('email', 'E-mail');
-	// 	map.set('password', 'Password');
-	// }
+	// map.set('cpf', 'CPF');
+	// map.set('celular', 'Celular');
+
+	let errors = createFormikValidation(map, values);
+
+	return errors;
+};
+
+export const validateEditPerfil = values => {
+	let map = new Map();
+
+	map.set('usr_name', 'Nome');
+	map.set('email', 'E-mail');
+
+	if (values.password.length > 0) {
+		map.set('password', 'Senha');
+	}
+
+	// map.set('cpf', 'CPF');
+	// map.set('celular', 'Celular');
 
 	let errors = createFormikValidation(map, values);
 

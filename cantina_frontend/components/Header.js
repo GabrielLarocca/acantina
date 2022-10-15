@@ -141,7 +141,7 @@ export default function Header(props) {
 					<div className={styles.itemsHeader}>
 						<Link href={'/'}>
 							<p className={router.route == '/' ? styles.selectedHeader : {}}>
-								Início{console.log(router)}
+								Início
 							</p>
 						</Link>
 
@@ -151,7 +151,7 @@ export default function Header(props) {
 							</p>
 						</Link>
 
-						<Link href={'/perfil'}>
+						<Link href={user ? '/perfil' : '/auth'}>
 							<p className={router.route.includes('perfil') ? styles.selectedHeader : {}}>
 								Perfil
 							</p>

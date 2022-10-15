@@ -79,39 +79,14 @@
 	color: #1E252C;
 }
 
-.line {
-	display: flex;
-	align-items: center;
-	margin-top: 24px;
-}
-
-.line>div {
-	flex: 1;
-	height: 1px;
-	background-color: #DCDDDE;
-}
-
-.line>p {
+.alterarSenha {
+	margin: 24px 0 16px 0;
 	font-family: 'Inter', sans-serif;
-	font-style: normal;
-	font-weight: 700;
-	font-size: 16px;
-	line-height: 24px;
-	text-align: center;
-	color: #787A7C;
-	margin: 0;
-	padding: 0 8px;
-}
-
-.esqueciSenha {
-	font-family: 'Inter';
 	font-style: normal;
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 20px;
-	text-align: end;
-	color: #56585A;
-	margin: 16px 0 0 0;
+	color: #384047;
 }
 
 @media screen and (min-width: 991px) {

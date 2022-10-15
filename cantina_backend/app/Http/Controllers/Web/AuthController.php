@@ -131,4 +131,41 @@ class AuthController extends Controller {
 
 		return $this->authenticateUser($obj);
 	}
+
+	public function edit(Request $request) {
+		$errors = array();
+
+		$validator = Validator::make($request->all(), [
+			'usr_name' => 'required',
+			'email' => 'required|email',
+		]);
+
+		if ($validator->fails()) {
+			foreach ($validator->errors()->getMessages() as $item) {
+				array_push($errors, $item[0]);
+			}
+
+			return response()->json(['errors' => $errors]);
+		}
+
+		$obj = Usuario::where(["id" => $request->user()->id])->firstOrFail();
+
+		$obj->usr_name = $request->usr_name;
+		$obj->email = $request->email;
+
+		if ($request->password) {
+			$obj->password = bcrypt($request->password);
+		}
+
+		$obj->usr_active = 1;
+
+		$obj->save();
+
+
+		return $obj;
+	}
+
+	public function get(Request $request) {
+		return response()->json(Usuario::where(["id" => $request->user()->id])->firstOrFail());
+	}
 }

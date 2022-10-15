@@ -42,50 +42,53 @@ export default function Login() {
 		<>
 			<Header />
 
-			<div className={styles.container}>
-				<Formik initialValues={{ email: "", password: "" }} validate={values => validateLogin(values)} onSubmit={(values, { setSubmitting }) => onSubmit(values, setSubmitting)}>
-					{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-						<form noValidate={true} autoComplete="off" style={{ display: 'flex', flexDirection: 'column', height: '100%' }} onSubmit={handleSubmit}>
-							<div style={{ flexGrow: 1 }}>
-								<Link href={'/'}>
-									<div className={styles.voltarBtn}>
-										<RiArrowLeftSLine color='#384047' size={20} />
-										<p>Voltar</p>
+			<div className={styles.containerDesk}>
+				<div className={styles.container}>
+					<Formik initialValues={{ email: "", password: "" }} validate={values => validateLogin(values)} onSubmit={(values, { setSubmitting }) => onSubmit(values, setSubmitting)}>
+						{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+							<form noValidate={true} autoComplete="off" style={{ display: 'flex', flexDirection: 'column', height: '100%' }} onSubmit={handleSubmit}>
+								<div style={{ flexGrow: 1 }}>
+									<Link href={'/auth'}>
+										<div className={styles.voltarBtn}>
+											<RiArrowLeftSLine color='#384047' size={20} />
+											<p>Voltar</p>
+										</div>
+									</Link>
+
+									<h1 className={styles.title}>Fazer o login</h1>
+
+									<div className="form-group">
+										<p>E-mail</p>
+										<TextField type="email" variant='outlined' placeholder="E-mail" margin="none" name="email"
+											onBlur={handleBlur} onChange={handleChange} value={values.email} helperText={touched.email && errors.email}
+											error={Boolean(touched.email && errors.email)} />
 									</div>
-								</Link>
 
-								<h1 className={styles.title}>Fazer o login</h1>
+									<div className="form-group">
+										<p>Senha</p>
+										<TextField type="password" variant='outlined' placeholder="Senha" margin="none" name="password"
+											onBlur={handleBlur} onChange={handleChange} value={values.password} helperText={touched.password && errors.password}
+											error={Boolean(touched.password && errors.password)} />
+									</div>
 
-								<div className="form-group">
-									<p>E-mail</p>
-									<TextField type="email" variant='outlined' placeholder="E-mail" margin="none" name="email"
-										onBlur={handleBlur} onChange={handleChange} value={values.email} helperText={touched.email && errors.email}
-										error={Boolean(touched.email && errors.email)} />
+									{/* <p className={styles.esqueciSenha}>Esqueceu a senha?</p> */}
 								</div>
 
-								<div className="form-group">
-									<p>Senha</p>
-									<TextField type="password" variant='outlined' placeholder="Senha" margin="none" name="password"
-										onBlur={handleBlur} onChange={handleChange} value={values.password} helperText={touched.password && errors.password}
-										error={Boolean(touched.password && errors.password)} />
+								<div>
+									<button type="submit" style={{ marginTop: 36 }} disabled={isSubmitting} className={styles.buttonP}>
+										Entrar
+
+										{isSubmitting && (
+											<Spinner color="#FFF" size="sm" animation="border" className={"spinner ml-3"} />
+										)}
+									</button>
 								</div>
-
-								<p className={styles.esqueciSenha}>Esqueceu a senha?</p>
-							</div>
-
-							<div>
-								<button type="submit" disabled={isSubmitting} className={styles.buttonP}>
-									Entrar
-
-									{isSubmitting && (
-										<Spinner color="#FFF" size="sm" animation="border" className={"spinner ml-3"} />
-									)}
-								</button>
-							</div>
-						</form>
-					)}
-				</Formik>
+							</form>
+						)}
+					</Formik>
+				</div>
 			</div>
+
 		</>
 	)
 }

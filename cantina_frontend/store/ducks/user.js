@@ -61,17 +61,22 @@ export const register = user => {
 	return axios.post(`${Constants.baseUrl}/register`, user);
 };
 
-export const get = () => {
+export const getMe = () => {
 	return axios.get(`${Constants.baseUrl}/user`);
 };
 
-export const forgotPassword = data => {
-	return axios.post(`${Constants.baseUrl}/forgot-password`, data);
+export const edit = user => {
+	return axios.post(`${Constants.baseUrl}/user/edit`, user);
 };
 
-export const resetPassword = data => {
-	return axios.post(`${Constants.baseUrl}/reset-password`, data);
-};
+
+// export const forgotPassword = data => {
+// 	return axios.post(`${Constants.baseUrl}/forgot-password`, data);
+// };
+
+// export const resetPassword = data => {
+// 	return axios.post(`${Constants.baseUrl}/reset-password`, data);
+// };
 
 export const logout = () => {
 	return axios.delete(`${Constants.baseUrl}/logout`);

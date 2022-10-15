@@ -8,7 +8,6 @@
 	z-index: 1000;
 	display: flex;
 	align-items: center;
-	margin-left: 20px;
 }
 
 .voltarBtn p {
@@ -21,6 +20,10 @@
 	margin-left: 12px;
 }
 
+.containerDesk {
+	padding: 0 20px;
+}
+
 .containerGeral h1 {
 	font-family: 'Inter', sans-serif;
 	font-style: normal;
@@ -28,88 +31,77 @@
 	font-size: 20px;
 	line-height: 30px;
 	color: #0A1723;
-	margin: 36px 0 40px 20px;
+	margin: 36px 0 0 0;
 }
 
-.card {
-	padding: 24px 16px;
-	border-bottom: 1px solid #DCDDDE;
+.nameContainer {
+	width: 64px;
+	height: 64px;
+	background: #C0FDE3;
+	border-radius: 32px;
+	margin-top: 24px;
 	display: flex;
-	cursor: pointer;
+	justify-content: center;
+	align-items: center;
+
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 30px;
+	color: #136B46;
+	text-transform: uppercase;
 }
 
-.card:last-of-type {
-	border-bottom: none;
+.assets {
+	margin-top: 24px;
+	margin-bottom: 48px;
+	margin-left: 16px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
-.card h4 {
+.assets p:first-of-type {
 	font-family: 'Inter', sans-serif;
 	font-style: normal;
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 24px;
-	color: #0A1723;
+	color: #1E252C;
+	margin-bottom: 5px;
 }
 
-.card .assets {
-	display: flex;
-	margin-top: 10px;
-}
-
-.card .assets p {
-	font-family: 'Inter', sans-serif;
+.assets p:last-of-type {
+	font-family: 'Inter';
 	font-style: normal;
-	font-weight: 400;
-	font-size: 14px;
-	line-height: 20px;
-	color: #384047;
-	padding: 0 12px;
-	border-right: 1px solid #BEC0C1;
-	margin-bottom: 0;
-}
-
-.card .assets p:first-of-type {
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 20px;
-	color: #0CA364;
-	padding: 0 12px 0 0;
+	color: #384047;
+	margin-bottom: 0;
 }
 
-.card .assets p:last-of-type {
-	border-right: none;
-}
-
-.card .arrowGo {
+.button {
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	padding: 20px 0;
+	border-top: 1px solid #DCDDDE;
+	cursor: pointer;
 }
 
-.containerNoProducts {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	margin-top: 150px;
+.button div:first-of-type {
+	flex: 1;
 }
 
-.containerNoProducts img {
-	align-self: center;
-	width: 100px;
-	height: 100px;
-}
-
-.containerNoProducts p {
-	margin-top: 24px;
+.button p {
+	margin-bottom: 0;
 	font-family: 'Inter', sans-serif;
 	font-style: normal;
-	font-weight: 600;
-	font-size: 20px;
-	line-height: 30px;
-	text-align: center;
-	color: #A4A6A7;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 24px;
+	color: #1E252C;
 }
-
 
 @media screen and (min-width: 991px) {
 	.containerDesk {

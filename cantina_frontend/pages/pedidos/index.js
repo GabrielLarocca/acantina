@@ -80,9 +80,15 @@ export default function Pedidos() {
 						<Spinner style={{ color: "#0CA364" }} size="md" animation="border" className={"spinner mt-5"} />
 					</div>
 					:
-					pedidos.map((pedido, index) => (
-						<PedidoCard pedido={pedido} key={index} />
-					))
+					pedidos.length > 0 ?
+						pedidos.map((pedido, index) => (
+							<PedidoCard pedido={pedido} key={index} />
+						))
+						:
+						<div className={styles.containerNoProducts}>
+							<img src={"/images/nothingHere.png"} width={100} height={100} />
+							<p>Não há pedidos cadastrados</p>
+						</div>
 				}
 			</div>
 		</div>

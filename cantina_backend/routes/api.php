@@ -41,6 +41,11 @@ Route::group(['prefix' => 'web'], function () {
 
 	Route::group(['middleware' => ['auth:sanctum', 'user']], function () {
 		/*authenticated routes*/
+		Route::group(['prefix' => 'user'], function () {
+			Route::get('/', [AuthController::class, 'get']);
+			Route::post('/edit', [AuthController::class, 'edit']);
+		});
+
 		Route::group(['prefix' => 'pedido'], function () {
 			Route::post('/', [PedidoController::class, 'store']);
 			Route::post('/list', [PedidoController::class, 'list']);
