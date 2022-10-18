@@ -1,0 +1,1489 @@
+{
+	"info": {
+		"_postman_id": "66fa7d22-c964-4723-b04b-03f84d1d7b9d",
+		"name": "Acantina",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "App",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "glarocca@laon.com.br",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/web/auth",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"auth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "glarocca@laon.com.br",
+											"type": "text"
+										},
+										{
+											"key": "usr_name",
+											"value": "Gabss",
+											"type": "default"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/web/register",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Carrinho",
+					"item": [
+						{
+							"name": "Store",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "product_id",
+											"value": "13",
+											"type": "default"
+										},
+										{
+											"key": "quantity",
+											"value": "1",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/web/carrinho/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"carrinho",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/web/carrinho/list",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"carrinho",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/web/carrinho/12",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"carrinho",
+										"12"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{tokenUser}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Produtos",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "pro_category_id",
+											"value": "1",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/web/produtos/list",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"produtos",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/web/produtos/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"produtos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{tokenUser}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Categoria",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/web/categoria/list",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"categoria",
+										"list"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{tokenUser}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Pedido",
+					"item": [
+						{
+							"name": "Store",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "product_id",
+											"value": "13",
+											"type": "default"
+										},
+										{
+											"key": "quantity",
+											"value": "1",
+											"type": "default"
+										},
+										{
+											"key": "ord_type_payment",
+											"value": "credit-card",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/web/pedido/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"pedido",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/web/pedido/list",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"pedido",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/web/pedido/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"pedido",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/web/pedido/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"pedido",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{tokenUser}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Edit",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "usr_name",
+											"value": "gabriel tesste",
+											"type": "default"
+										},
+										{
+											"key": "email",
+											"value": "gabrielgamerxgx@gmail.com",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/web/user/edit",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"user",
+										"edit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/web/user/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"user",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/web/carrinho/12",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"web",
+										"carrinho",
+										"12"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{tokenUser}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "adm_email",
+											"value": "root@root.com",
+											"type": "default"
+										},
+										{
+											"key": "adm_password",
+											"value": "123456",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/auth",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"auth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "adm_name",
+											"value": "Gabriel Larocca",
+											"type": "default"
+										},
+										{
+											"key": "adm_email",
+											"value": "root@root.com",
+											"type": "default"
+										},
+										{
+											"key": "adm_password",
+											"value": "123456",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/register",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Produtos",
+					"item": [
+						{
+							"name": "Store Produtos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "pro_name",
+											"value": "Sanduiche de rato",
+											"type": "default"
+										},
+										{
+											"key": "pro_description",
+											"value": "sanduiche de rato",
+											"type": "default"
+										},
+										{
+											"key": "pro_price",
+											"value": "9.00",
+											"type": "default"
+										},
+										{
+											"key": "pro_category_id",
+											"value": "1",
+											"type": "default"
+										},
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "/home/hmt-02/Downloads/hamburgur.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/produto/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"produto",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Produtos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "8",
+											"type": "default"
+										},
+										{
+											"key": "pro_name",
+											"value": "Sanduiche de rato",
+											"type": "default"
+										},
+										{
+											"key": "pro_description",
+											"value": "sanduiche de rato",
+											"type": "default"
+										},
+										{
+											"key": "pro_price",
+											"value": "9.00",
+											"type": "default"
+										},
+										{
+											"key": "pro_category_id",
+											"value": "1",
+											"type": "default"
+										},
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "/home/hmt-02/Downloads/hamburgur.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/produto/edit",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"produto",
+										"edit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Products",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/produto/list",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"produto",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Produtos",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "pro_name",
+											"value": "Paçoca",
+											"type": "default"
+										},
+										{
+											"key": "pro_description",
+											"value": "Uma paçoquinha para alegrar o dia",
+											"type": "default"
+										},
+										{
+											"key": "pro_price",
+											"value": "1.50",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/produto/36",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"produto",
+										"36"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Produtos",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "pro_name",
+											"value": "Paçoca",
+											"type": "default"
+										},
+										{
+											"key": "pro_description",
+											"value": "Uma paçoquinha para alegrar o dia",
+											"type": "default"
+										},
+										{
+											"key": "pro_price",
+											"value": "1.50",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/produto/8",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"produto",
+										"8"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "7",
+											"description": "id a ser excluid",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Pedidos",
+					"item": [
+						{
+							"name": "Update pedido",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "ord_state_order",
+											"value": "finalizado",
+											"type": "text"
+										},
+										{
+											"key": "ord_state_payment",
+											"value": "pago",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/pedido/editPedidoStatus",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"pedido",
+										"editPedidoStatus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List pedido Abertos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/admin/pedido/list",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"pedido",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List pedido Concluidos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/pedido/listConcluidos",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"pedido",
+										"listConcluidos"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Usuarios",
+					"item": [
+						{
+							"name": "Store usuario",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "usr_name",
+											"value": "Gabriel Larocca",
+											"type": "default"
+										},
+										{
+											"key": "email",
+											"value": "glarocca@laon.com",
+											"type": "default"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/usuario/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"usuario",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List usuario",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/usuario/list",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"usuario",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get usuario",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "pro_name",
+											"value": "Paçoca",
+											"type": "default"
+										},
+										{
+											"key": "pro_description",
+											"value": "Uma paçoquinha para alegrar o dia",
+											"type": "default"
+										},
+										{
+											"key": "pro_price",
+											"value": "1.50",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/usuario/12",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"usuario",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete usuario",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "pro_name",
+											"value": "Paçoca",
+											"type": "default"
+										},
+										{
+											"key": "pro_description",
+											"value": "Uma paçoquinha para alegrar o dia",
+											"type": "default"
+										},
+										{
+											"key": "pro_price",
+											"value": "1.50",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/usuario/7",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"usuario",
+										"7"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "7",
+											"description": "id a ser excluid",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Coupons",
+					"item": [
+						{
+							"name": "Store coupon",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "cou_code",
+											"value": "DXZN1",
+											"type": "default"
+										},
+										{
+											"key": "cou_discount",
+											"value": "5.00",
+											"type": "default"
+										},
+										{
+											"key": "cou_description",
+											"value": "Um desconto de boas vindas",
+											"type": "default"
+										},
+										{
+											"key": "cou_initial_date",
+											"value": "2022-09-28 23:05:45",
+											"type": "default"
+										},
+										{
+											"key": "cou_finish_date",
+											"value": "2022-12-28 23:05:45",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/cupom/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"cupom",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List coupon",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/cupom/list",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"cupom",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get coupon",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "pro_name",
+											"value": "Paçoca",
+											"type": "default"
+										},
+										{
+											"key": "pro_description",
+											"value": "Uma paçoquinha para alegrar o dia",
+											"type": "default"
+										},
+										{
+											"key": "pro_price",
+											"value": "1.50",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/cupom/7",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"cupom",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete coupon",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/cupom/5",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"cupom",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Categorias",
+					"item": [
+						{
+							"name": "Get Categorias",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "pro_name",
+											"value": "Paçoca",
+											"type": "default"
+										},
+										{
+											"key": "pro_description",
+											"value": "Uma paçoquinha para alegrar o dia",
+											"type": "default"
+										},
+										{
+											"key": "pro_price",
+											"value": "1.50",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/categoria/list",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"categoria",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store Categoria",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "cat_name",
+											"value": "Sanduiches",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/categoria/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"categoria",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "1|WkAaa4IkbxVQZZuv7ID9ELQTcX0jN24nhE5qZvHQ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
