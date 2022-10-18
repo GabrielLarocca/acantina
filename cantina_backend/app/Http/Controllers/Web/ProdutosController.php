@@ -27,7 +27,7 @@ class ProdutosController extends Controller {
 			return response()->json(['errors' => $errors], 422);
 		}
 
-		$produtos = Produto::where(["pro_active" => 1, "pro_category_id" => $request->pro_category_id]);
+		$produtos = Produto::where(["pro_active" => 1, "pro_category_id" => $request->pro_category_id])->orderBy('id', 'desc');
 
 		$currentPage = $request->page + 1;
 		$rows = 50;

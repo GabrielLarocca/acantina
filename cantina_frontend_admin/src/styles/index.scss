@@ -4,16 +4,30 @@
 	font-family: 'Inter', sans-serif;
 }
 
+html {
+	min-height: 100%;
+	background: #E5E5E5;
+}
+
+body{
+	min-height: 100%;
+} 
+
+#root{
+	min-height: 100%;
+}
+
 input{
 	font-family: 'Inter', sans-serif !important;
 }
 
 .MuiOutlinedInput-input{
 	padding: 14px 16px !important;
+	font-family: 'Inter', sans-serif !important;
 }
 
 .MuiFormHelperText-root{
-	font-family: 'Inter';
+	font-family: 'Inter', sans-serif !important;
 	color: red !important;
 	font-size: 12px !important;
 	margin-top: 5px;
@@ -532,4 +546,8 @@ a.btn:hover {
 
 .buttonCenter {
     vertical-align: middle;
+}
+
+.MuiFormControl-root{
+	width: 100%;
 }

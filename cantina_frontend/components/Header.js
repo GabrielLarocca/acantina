@@ -20,7 +20,6 @@ export default function Header(props) {
 	const [modalCarrinho, setModalCarrinho] = useState(false);
 	const [menu, setMenu] = useState(false);
 	const [carrinho, setCarrinho] = useState([]);
-	const [selected, setSelected] = useState('home');
 	const [loading, setLoading] = useState(true);
 	const [total, setTotal] = useState(0);
 
@@ -145,7 +144,7 @@ export default function Header(props) {
 							</p>
 						</Link>
 
-						<Link href={'/pedidos'}>
+						<Link href={user ? '/pedidos' : '/auth'}>
 							<p className={router.route.includes('pedidos') ? styles.selectedHeader : {}}>
 								Seus pedidos
 							</p>
@@ -164,7 +163,9 @@ export default function Header(props) {
 						<RiMenuFill color="#FFF" size={20} onClick={() => setMenu(!menu)} />
 				}
 
-				<Image width={90} height={30} src="/images/ACantina_logoWhite.svg" alt='logo da loja' />
+				<Link href={'/'}>
+					<Image className='pointer' width={90} height={30} src="/images/ACantina_logoWhite.svg" alt='logo da loja' />
+				</Link>
 
 				<div onClick={openCart} className={styles.containerItemOnCart}>
 					<RiShoppingCart2Fill color='#FFF' size={20} />

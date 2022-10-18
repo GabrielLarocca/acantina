@@ -31,7 +31,7 @@ export const validateLogin = values => {
 	return errors;
 };
 
-export const validateRegister = (values, loginSocial) => {
+export const validateRegister = (values) => {
 	let map = new Map();
 
 	map.set('nome', 'Nome');
@@ -39,11 +39,6 @@ export const validateRegister = (values, loginSocial) => {
 	map.set('email', 'E-mail');
 	map.set('celular', 'Celular');
 	map.set('senha', 'Senha');
-
-	// if (!loginSocial) {
-	// 	map.set('email', 'E-mail');
-	// 	map.set('password', 'Password');
-	// }
 
 	let errors = createFormikValidation(map, values);
 
@@ -62,4 +57,40 @@ export const validateProduto = (values) => {
 	let errors = createFormikValidation(map, values);
 
 	return errors;
+};
+
+export const formatBRLNoSign = (value) => {
+	const formatter = new Intl.NumberFormat("pt-BR", {
+		style: "currency",
+		currency: "BRL",
+		symbol: "",
+	});
+
+	value = formatter.format(value).replace("R$", "");
+
+	return value;
+};
+
+export const formatBRL = (value) => {
+	const formatter = new Intl.NumberFormat("pt-BR", {
+		style: "currency",
+		currency: "BRL",
+		minimumFractionDigits: 2,
+	});
+
+	value = formatter.format(value);
+
+	return value;
+};
+
+export const limparMoeda = (valor) => {
+	valor = valor.replace("R$", "");
+	valor = valor.replace(".", "");
+	valor = valor.replace(",", ".");
+	valor = valor.replace("/^p{Z}+|p{Z}+$/u", "");
+	valor = valor.trim();
+
+	if (valor == '') return 0;
+
+	return valor;
 };

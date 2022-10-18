@@ -1,0 +1,230 @@
+#Pedidos{
+	.tableWrapper{
+		width: 100%;
+		background-color: #FFF;
+		display: flex;
+	}
+
+	.p-datatable{
+		width: 376px;
+		min-width: 'auto';
+
+		.p-datatable-tbody > tr > td {
+			border: 1px solid #DCDDDE !important;
+
+			&:first-of-type{
+				border-top: none !important;
+			}
+		}
+	}
+
+	.p-datatable-thead{
+		display: none;
+	}
+
+	.p-datatable-wrapper {
+		padding: 0;
+		background-color: #FFF;
+	}
+
+	.p-datatable-header {
+		border: 1px solid #DCDDDE !important;
+		border-bottom: none !important;
+		border-top: none !important;
+		border-radius: none !important;
+		border-top-right-radius: 0 !important;
+		border-top-left-radius: 0 !important;
+		padding: 16px !important;
+		
+		.form-group{
+			margin: 0 !important;
+		}
+	}
+
+	th{
+		display: none;
+	}
+
+	td{
+		padding: 0;
+	}
+
+	.p-datatable table {
+		min-width: 'auto';
+		width: 376px;
+	}
+
+	.cardPedido{
+		padding: 24px;
+		cursor: pointer;
+
+		&:hover{
+			background-color: #3840470e;
+		}
+
+		h3{
+			font-family: 'Inter', sans-serif;
+			font-style: normal;
+			font-weight: 600;
+			font-size: 16px;
+			line-height: 24px;
+			color: #0A1723;
+			margin-bottom: 8px;
+		}
+
+		p{
+			font-family: 'Inter', sans-serif;
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 20px;
+			color: #384047;
+			padding-bottom: 0;
+		}
+	}
+
+	.pedidoDetalhes{
+		padding: 24px;
+		width: 100%;
+
+		h3{
+			font-family: 'Inter', sans-serif;
+			font-style: normal;
+			font-weight: 600;
+			font-size: 20px;
+			line-height: 30px;
+			color: #0A1723;
+			margin-bottom: 16px;
+		}
+
+		p{
+			font-family: 'Inter', sans-serif;
+			font-style: normal;
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 24px;
+			color: #56585A;
+			margin-bottom:8px;
+
+			&:last-of-type{
+				margin-bottom: 24px;
+			}
+		}
+
+		.tableDetalhe{
+			border: 1px solid #DCDDDE;
+			border-radius: 4px;
+			width: 100%;
+
+			.headerDetalhe{
+				padding: 16px 20px;
+				background: #FFF2ED;
+				border-radius: 4px 4px 0 0;
+
+				p{
+					font-family: 'Inter', sans-serif;
+					font-style: normal;
+					font-weight: 600;
+					font-size: 16px;
+					line-height: 24px;
+					color: #A24603;
+					margin-bottom: 0;
+				}
+			}
+
+			.bodyDetalhe{
+				display: flex;
+				justify-content: space-between;
+				border-top: 1px solid #DCDDDE;
+				align-items: center;
+				padding: 16px 20px;
+
+				.assets{
+					display: flex;
+
+					p{
+						font-family: 'Inter', sans-serif;
+						font-style: normal;
+						font-weight: 400;
+						font-size: 16px;
+						line-height: 24px;
+						color: #0CA364;
+						margin-bottom: 0;
+						margin-right: 16px;
+					}
+
+					h5{
+						font-family: 'Inter', sans-serif;
+						font-style: normal;
+						font-weight: 600;
+						font-size: 16px;
+						line-height: 24px;
+						color: #0A1723;
+						margin-bottom: 0;
+					}
+				}
+
+				.price{
+					font-family: 'Inter', sans-serif;
+					font-style: normal;
+					font-weight: 600;
+					font-size: 16px;
+					line-height: 24px;
+					color: #0A1723;
+					margin-bottom: 0;
+				}
+			}
+
+			.footerDetalhe{
+				border-top: 1px solid #DCDDDE;
+				padding: 16px 20px;
+				display: flex;
+				justify-content: space-between;
+				height: 116px;
+
+				p{
+					font-family: 'Inter', sans-serif;
+					font-style: normal;
+					font-weight: 400;
+					font-size: 16px;
+					line-height: 24px;
+					color: #56585A;
+					margin-bottom: 0;
+				}
+
+				.price{
+					font-family: 'Inter', sans-serif;
+					font-style: normal;
+					font-weight: 600;
+					font-size: 16px;
+					line-height: 24px;
+					color: #0A1723;
+					margin-bottom: 0;
+				}
+			}
+
+			.finalizarPedido{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 16px 20px;
+				border-top: 1px solid #DCDDDE;
+
+				p{
+					font-family: 'Inter', sans-serif;
+					font-style: normal;
+					font-weight: 500;
+					font-size: 16px;
+					line-height: 24px;
+					color: #384047;
+					margin-bottom: 0;
+				}
+
+				button{
+					background: #0CA364 !important;
+					border-radius: 4px;
+				}
+			}
+		}
+	}
+}

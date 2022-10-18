@@ -132,26 +132,30 @@ export default class BetterDataTable extends Component {
 	render() {
 		const header = (
 			<div>
-				<div className="d-flex">
-					<Link to={`${this.props.crudUrl}/new`}>
-						<button className={`btn btn-primary btn-elevate btnPrimario`}>
-							<AddFillIcon color="#fff" size={18} style={{ marginRight: 12 }} />
-							Adicionar {this.props.btnTitle}
-						</button>
-					</Link>
+				{this.props.noHeader ? null :
+					(
+						<div className="d-flex">
+							{this.props.noHeaderNewbtn ? null : (
+								<Link to={`${this.props.crudUrl}/new`}>
+									<button className={`btn btn-primary btn-elevate btnPrimario`}>
+										<AddFillIcon color="#fff" size={18} style={{ marginRight: 12 }} />
+										Adicionar {this.props.btnTitle}
+									</button>
+								</Link>
+							)}
 
-
-					<div className="form-group d-flex flex-column" style={{ marginLeft: 16, flex: 1 }}>
-						<TextField variant='outlined' placeholder={`Encontre um ${this.props.btnTitle}`} margin="none" style={{ backgroundColor: '#fff', display: 'flex' }}
-							type="search" onInput={(e) => { this.setState({ globalFilter: e.target.value }); this.doGlobalFiltering(e.target.value); }} />
-					</div>
-				</div>
+							<div className="form-group d-flex flex-column" style={{ marginLeft: 16, flex: 1 }}>
+								<TextField variant='outlined' placeholder={`Encontre um ${this.props.btnTitle}`} margin="none" style={{ backgroundColor: '#fff', display: 'flex' }}
+									type="search" onInput={(e) => { this.setState({ globalFilter: e.target.value }); this.doGlobalFiltering(e.target.value); }} />
+							</div>
+						</div>
+					)}
 			</div>
 		);
 
 		return (
 			<DataTable ref={(el) => this.dt = el} value={this.state.data} paginator={true} rows={this.state.rows} rowsPerPageOptions={[10, 25, 50]}
-				first={this.state.first} last={this.state.last} header={this.props.noHeader ? null : header} globalFilter={this.state.globalFilter} responsive={true}
+				first={this.state.first} last={this.state.last} header={header} globalFilter={this.state.globalFilter} responsive={true}
 				totalRecords={this.state.totalRecords} lazy={true} onPage={this.onPage} loading={this.state.loading} loadingIcon={`fa fa-sync fa-spin`}
 				paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
 				currentPageReportTemplate="Mostrando {first} até {last} de {totalRecords} registros"

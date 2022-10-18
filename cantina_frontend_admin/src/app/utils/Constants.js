@@ -9,4 +9,5 @@ if (process.env.NODE_ENV === 'development') {
 export const Constants = {
 	url: url,
 	baseUrl: url + "/api/admin",
+	imageUrl: url + '/storage/'
 };

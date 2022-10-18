@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Helpers\Utils;
+use App\Models\Arquivo;
 use App\Models\Produto;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProdutoController extends Controller {
@@ -51,24 +53,30 @@ class ProdutoController extends Controller {
 		$obj->pro_category_id = $request->pro_category_id;
 		$obj->pro_active = 1;
 
-		/*if ($request->file('photo') != null) {
-			$attachment = Utils::addAttachment($request->file('photo'));
+		if ($request->file('photo') != null) {
+			$this->validate($request, [
+				'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+			]);
 
-			$obj->pro_image_id = $attachment->id;
-		}*/
+			$path = Storage::disk('public')->putFile('uploads', $request->file('photo'));
+
+			$obj->pro_image_path = $path;
+		}
 
 		$obj->save();
 
 		return response()->json($obj);
 	}
 
-	public function update(Request $request, $id) {
+	public function update(Request $request) {
 		$errors = array();
 
 		$validator = Validator::make($request->all(), [
+			'id' => 'required',
 			'pro_name' => 'required',
 			'pro_description' => 'required',
-			'pro_price' => 'required'
+			'pro_price' => 'required',
+			'pro_category_id' => 'required'
 		]);
 
 		if ($validator->fails()) {
@@ -79,21 +87,22 @@ class ProdutoController extends Controller {
 			return response()->json(['errors' => $errors]);
 		}
 
-		$obj = Produto::where(['pro_active' => 1, 'id' => $id])->firstOrFail();
+		$obj = Produto::where(['pro_active' => 1, 'id' => $request->id])->firstOrFail();
 
 		$obj->pro_name = $request->pro_name;
 		$obj->pro_description = $request->pro_description;
 		$obj->pro_price = $request->pro_price;
+		$obj->pro_category_id = $request->pro_category_id;
 
-		/*if ($request->file('photo') != null) {
+		if ($request->file('photo') != null) {
 			$this->validate($request, [
 				'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024',
 			]);
 
-			$attachment = Utils::addAttachment($request->file('photo'));
+			$path = Storage::disk('public')->putFile('uploads', $request->file('photo'));
 
-			$obj->pro_image_id = $attachment->id;
-		}*/
+			$obj->pro_image_path = $path;
+		}
 
 		$obj->save();
 

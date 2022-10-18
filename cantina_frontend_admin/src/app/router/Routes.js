@@ -13,6 +13,7 @@ import CuponsIndex from "../pages/dashboard/cupons/CuponsIndex";
 import UsuariosIndex from "../pages/dashboard/usuarios/UsuariosIndex";
 import Logout from "../pages/auth/Logout";
 import ProdutosNew from "../pages/dashboard/produtos/ProdutosNew";
+import ProdutosEdit from "../pages/dashboard/produtos/ProdutosEdit";
 
 const Routes = () => {
 	const { isAuthorized } = useSelector(({ auth }) => ({ isAuthorized: auth.user != null }));
@@ -25,16 +26,22 @@ const Routes = () => {
 				:
 				(
 					<>
-						<Route exact path="/" element={<Navigate to={'/dashboard'} />} />
+						<Route exact path="/" element={<Navigate to={'/pedidos'} />} />
 
-						<Route exact path="/dashboard" element={<Dashboard />} />
+						{/* <Route exact path="/dashboard" element={<Dashboard />} /> */}
 
 						<Route exact path="/pedidos" element={<PedidosIndex />} />
+						<Route exact path="/pedidos/new" element={<PedidosIndex />} />
+						<Route path="/pedidos/edit/:id" element={<PedidosIndex />} />
 
+						{/* produtos crud */}
 						<Route exact path="/produtos" element={<ProdutosIndex />} />
 						<Route exact path="/produtos/new" element={<ProdutosNew />} />
+						<Route path="/produtos/edit/:id" element={<ProdutosEdit />} />
 
 						<Route exact path="/cupons" element={<CuponsIndex />} />
+						<Route exact path="/cupons/new" element={<CuponsIndex />} />
+						<Route path="/cupons/edit/:id" element={<CuponsIndex />} />
 
 						<Route exact path="/usuarios" element={<UsuariosIndex />} />
 

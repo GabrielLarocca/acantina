@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { storeCarrinho } from '../../store/ducks/carrinho';
 import Swal from 'sweetalert2'
 import { useMediaQuery } from "react-responsive";
+import { Constants } from '../../helpers/constants';
 
 export default function Produtos() {
 	const { query, back, push } = useRouter();
@@ -94,7 +95,7 @@ export default function Produtos() {
 				<div className={styles.containerDesk}>
 					<ReturnButton />
 
-					<div className={styles.imagemProduto} style={produto.imagem ? { backgroundImage: `url(${produto.imagem})` } : {}} />
+					<div className={styles.imagemProduto} style={produto?.pro_image_path ? { backgroundImage: `url(${Constants.imageUrl + produto?.pro_image_path})` } : {}} />
 
 					<div className={styles.container}>
 						<div>
@@ -102,7 +103,6 @@ export default function Produtos() {
 							<p className={styles.descricaoProduto}>{produto?.pro_description}</p>
 							<p className={styles.precoProduto}>{formatBRL(produto?.pro_price)}</p>
 						</div>
-
 
 						{!isMobile && (
 							<div>

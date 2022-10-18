@@ -9,6 +9,7 @@ import { getProdutos } from '../../store/ducks/produtos';
 import Swal from 'sweetalert2';
 import { formatBRL } from '../../helpers/validation';
 import { Spinner } from 'react-bootstrap';
+import { Constants } from '../../helpers/constants';
 
 export default function Produtos() {
 	const { query } = useRouter();
@@ -60,7 +61,8 @@ export default function Produtos() {
 			<div>
 				<Link href={{ pathname: `/produtos/${produto.id}` }}>
 					<div className={`${styles.cardProduto}`}>
-						<div className={styles.imagemProduto} style={produto.imagem ? { backgroundImage: `url(${produto.imagem})` } : {}} />
+						<div className={styles.imagemProduto} style={produto?.pro_image_path ? { backgroundImage: `url(${Constants.imageUrl + produto?.pro_image_path})` } : {}} />
+						{console.log(produto?.pro_image_path, Constants)}
 
 						<p className={styles.nomeProduto}>{produto.pro_name}</p>
 						<p className={styles.descricaoProduto}>{produto.pro_description}</p>

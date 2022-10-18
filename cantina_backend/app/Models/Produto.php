@@ -14,11 +14,12 @@ class Produto extends Model {
 		'pro_price',
 		'pro_category_id',
 		'pro_active',
+		'pro_image_path'
 	];
 
-	public function photo() {
-		return $this->belongsTo(Arquivo::class, 'pro_image_id');
-	}
+	// public function photo() {
+	// 	return $this->belongsTo(Arquivo::class, 'pro_image_id');
+	// }
 
 	public function categoria() {
 		return $this->belongsTo(Categoria::class, 'pro_category_id');

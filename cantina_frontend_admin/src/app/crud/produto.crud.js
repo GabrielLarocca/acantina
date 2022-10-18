@@ -9,7 +9,14 @@ export function create(values) {
 	return axios.post(`${Constants.baseUrl}/produto/`, values);
 }
 
+export function edit(values) {
+	return axios.post(`${Constants.baseUrl}/produto/edit`, values);
+}
+
+export function get(id) {
+	return axios.get(`${Constants.baseUrl}/produto/${id}`);
+}
+
 export function remove(id) {
-	console.log(id)
 	return axios.delete(`${Constants.baseUrl}/produto/${id}`);
 }

@@ -35,6 +35,10 @@ a {
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
+.pointer {
+	cursor: pointer;
+}
+
 /* Position and sizing of burger button */
 .bm-burger-button {
 	display: none;

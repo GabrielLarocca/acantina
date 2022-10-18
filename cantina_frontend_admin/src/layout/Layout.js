@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 
 function Layout(props) {
 	const pages = [
-		{ name: 'Dashboard', path: '/dashboard' },
+		// { name: 'Dashboard', path: '/dashboard' },
 		{ name: 'Pedidos', path: '/pedidos' },
 		{ name: 'Produtos', path: '/produtos' },
 		{ name: 'Cupons', path: '/cupons' },
@@ -46,6 +46,7 @@ function Layout(props) {
 
 	return (
 		<div className="layout-admin">
+			<div className="fake-menuleft" />
 			<div className="menu-left">
 				<div className="logo" style={{ backgroundImage: 'url(images/ACantina_logoWhite.svg)' }} />
 

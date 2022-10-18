@@ -9,6 +9,7 @@ use App\Http\Controllers\Web\ProdutosController;
 use App\Http\Controllers\Web\PedidoController;
 
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\CategoriaController as AdminCategoriaController;
 use App\Http\Controllers\Admin\ProdutoController as AdminProdutoController;
 use App\Http\Controllers\Admin\UsuarioController as AdminUsuarioController;
 use App\Http\Controllers\Admin\CupomController as AdminCupomController;
@@ -67,8 +68,16 @@ Route::group(['prefix' => 'admin'], function () {
 
 	Route::group(['middleware' => ['auth:sanctum', 'admin']], function () {
 		/*authenticated routes*/
+		Route::group(['prefix' => 'categoria'], function () {
+			Route::post('/', [AdminCategoriaController::class, 'store']);
+			Route::post('/list', [AdminCategoriaController::class, 'list']);
+			Route::get('/{id}', [AdminCategoriaController::class, 'get']);
+			Route::delete('/{id}', [AdminCategoriaController::class, 'destroy']);
+		});
+
 		Route::group(['prefix' => 'produto'], function () {
 			Route::post('/', [AdminProdutoController::class, 'store']);
+			Route::post('/edit', [AdminProdutoController::class, 'update']);
 			Route::post('/list', [AdminProdutoController::class, 'list']);
 			Route::get('/{id}', [AdminProdutoController::class, 'get']);
 			Route::delete('/{id}', [AdminProdutoController::class, 'destroy']);
@@ -91,6 +100,7 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::group(['prefix' => 'pedido'], function () {
 			Route::post('/', [AdminPedidoController::class, 'store']);
 			Route::post('/list', [AdminPedidoController::class, 'list']);
+			Route::post('/editPedidoStatus', [AdminPedidoController::class, 'update']);
 			Route::get('/{id}', [AdminPedidoController::class, 'get']);
 			Route::delete('/{id}', [AdminPedidoController::class, 'destroy']);
 		});

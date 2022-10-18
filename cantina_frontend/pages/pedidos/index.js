@@ -7,27 +7,33 @@ import Swal from 'sweetalert2';
 import { listPedidos } from '../../store/ducks/pedido';
 import { Spinner } from 'react-bootstrap';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 export default function Pedidos() {
 	const { back, push } = useRouter();
+	const { user } = useSelector((state) => state.user);
 
 	const [pedidos, setPedidos] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		listPedidos().then((res) => {
-			if (res?.status == 200) {
-				if (res.data.errors) {
-					return Swal.fire('Ops!', res?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
-				} else {
-					setPedidos(res.data);
+		if (user) {
+			listPedidos().then((res) => {
+				if (res?.status == 200) {
+					if (res.data.errors) {
+						return Swal.fire('Ops!', res?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+					} else {
+						setPedidos(res.data);
+					}
 				}
-			}
-		}).catch(({ response }) => {
-			return Swal.fire('Ops!', response?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
-		}).finally(() => {
-			setLoading(false);
-		});
+			}).catch(({ response }) => {
+				return Swal.fire('Ops!', response?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+			}).finally(() => {
+				setLoading(false);
+			});
+		} else {
+			push('/auth');
+		}
 	}, []);
 
 	const getColor = (pedido) => {

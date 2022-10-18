@@ -6,25 +6,42 @@ use DateTime;
 use DateTimeZone;
 use App\Models\File;
 use App\Helpers\S3Util;
+use App\Models\Arquivo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Log;
 
 class Utils {
 
 	static public function addAttachment($file) {
 		$imageName = time() . "-" . rand(1000, 1000000) . '.' . $file->getClientOriginalExtension();
 
-		$att = new File;
+		$att = new Arquivo;
 
 		$att->fil_name = $imageName;
 		$att->fil_size = filesize($file);
-
-		S3Util::putObject($att->fil_name, file_get_contents($file));
+		$att->fil_img = file_get_contents($file);
 
 		$att->save();
 
+		$file->move(public_path('images'), $imageName);
+
 		return $att;
+	}
+
+	static function getImage($name) {
+		Log::info(['name' => $name]);
+
+		$productID = explode(".", $name);
+
+
+		// $rendered_buffer= Product::all()->find($productID[0])->image;
+
+		// $response = Response::make($rendered_buffer);
+		// $response->header('Content-Type', 'image/png');
+		// $response->header('Cache-Control','max-age=2592000');
+		// return $response;
 	}
 
 	static function parseDateTime($string, $timeZone = null) {
@@ -52,12 +69,16 @@ class Utils {
 			return $currentPage;
 		});
 
-		if (sizeof($wheres) > 0) {
-			if (isset($join)) {
-				$query = $model::join($join->table, $join->key_1, $join->condition, $join->key_2)->where($wheres);
-			} else {
-				$query = $model::where($wheres);
+		if (isset($wheres)) {
+			if (sizeof($wheres) > 0) {
+				if (isset($join)) {
+					$query = $model::join($join->table, $join->key_1, $join->condition, $join->key_2)->where($wheres);
+				} else {
+					$query = $model::where($wheres);
+				}
 			}
+		} else {
+			$query = $model::where('id', '!=', '');
 		}
 
 		if (isset($with)) {
