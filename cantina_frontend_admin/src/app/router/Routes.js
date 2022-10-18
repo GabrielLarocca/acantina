@@ -25,7 +25,10 @@ const Routes = () => {
 	return (
 		<Switch>
 			{!isAuthorized ?
-				<Route exact path="/auth" element={<AuthPage />} />
+				<>
+					<Route path="/" element={<Navigate to={'/auth'} />} />
+					<Route exact path="/auth" element={<AuthPage />} />
+				</>
 				:
 				(
 					<>
