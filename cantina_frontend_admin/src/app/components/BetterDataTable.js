@@ -85,8 +85,8 @@ export default class BetterDataTable extends Component {
 
 						Swal.fire('Tudo certo!', `${this.props.btnTitle} removido com sucesso!`, 'success');
 						this.setState({ loading: false });
-					}).catch((err) => {
-						Swal.fire('Ops!', `Houve um problema ao remover o ${this.props.btnTitle}. Entre em contato com o suporte.`, 'error');
+					}).catch(({ response }) => {
+						Swal.fire('Ops!', response?.data?.errors?.[0] ?? `Houve um problema ao remover o ${this.props.btnTitle}. Entre em contato com o suporte.`, 'error');
 						this.setState({ loading: false });
 					});
 				} else {

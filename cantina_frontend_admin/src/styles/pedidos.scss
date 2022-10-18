@@ -54,6 +54,12 @@
 		width: 376px;
 	}
 
+	.p-datatable-emptymessage{
+		td{
+			text-align: center;
+		}
+	}
+
 	.cardPedido{
 		padding: 24px;
 		cursor: pointer;
@@ -120,6 +126,14 @@
 				padding: 16px 20px;
 				background: #FFF2ED;
 				border-radius: 4px 4px 0 0;
+
+				&.headerConcluido{
+					background: #EDFFF8 !important;
+
+					p{
+						color: #136B46 !important;
+					}
+				}
 
 				p{
 					font-family: 'Inter', sans-serif;
@@ -225,6 +239,44 @@
 					border-radius: 4px;
 				}
 			}
+		}
+	}
+
+	.abas{
+		display: flex;
+		margin-left: 1px;
+		border-radius: 4px 4px 0 0 !important;
+
+		div{
+			height: 56px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 16px 24px;
+			border-radius: 4px 4px 0 0 !important;
+			font-family: 'Inter', sans-serif;
+			font-style: normal;
+			font-weight: 500;
+			font-size: 16px;
+			line-height: 24px;
+			color: #56585A;
+			margin-bottom: 0;
+			cursor: pointer;
+
+			&:hover{
+				background-color: #3840470e;
+			}
+		}
+
+		.selected{
+			background: #FFFFFF;
+			font-family: 'Inter', sans-serif;
+			font-style: normal;
+			font-weight: 500;
+			font-size: 16px;
+			line-height: 24px;
+			color: #0A1723;
+			margin-bottom: 0;
 		}
 	}
 }

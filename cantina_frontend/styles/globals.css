@@ -154,6 +154,14 @@ label.p-dropdown-label.p-inputtext {
 	outline: 0;
 }
 
+.swal2-styled.swal2-confirm {
+	background: #0CA364 !important;
+}
+
+.swal2-styled.swal2-confirm:focus {
+	box-shadow: 0 0 0 3px #0ca36485 !important;
+}
+
 @media (min-width: 576px) {
 	.modal-dialog {
 		max-width: initial;

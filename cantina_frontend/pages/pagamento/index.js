@@ -18,6 +18,7 @@ export default function Pagamento() {
 	const [total, setTotal] = useState(0);
 	const [step, setStep] = useState(0);
 	const [refreshCart, setRefreshCart] = useState(0);
+	const [pedidoId, setPedidoId] = useState(0);
 
 	const router = useRouter();
 
@@ -53,6 +54,7 @@ export default function Pagamento() {
 				} else {
 					setRefreshCart(prev => prev + 1);
 					setStep(3);
+					setPedidoId(res.data.id);
 				}
 			}
 		}).catch(({ response }) => {
@@ -129,11 +131,11 @@ export default function Pagamento() {
 
 			<hr className={styles.line} />
 
-			<div className={styles.descontoContainer}>
+			{/* <div className={styles.descontoContainer}>
 				<p>Desconto</p>
 
 				<p>-{formatBRL(12.90)}</p>
-			</div>
+			</div> */}
 
 			<hr className={styles.line} />
 
@@ -170,11 +172,11 @@ export default function Pagamento() {
 
 			<hr className={styles.line} />
 
-			<div className={styles.descontoContainer}>
+			{/* <div className={styles.descontoContainer}>
 				<p>Desconto</p>
 
 				<p>-{formatBRL(12.90)}</p>
-			</div>
+			</div> */}
 
 			<hr className={styles.line} />
 
@@ -241,7 +243,7 @@ export default function Pagamento() {
 	const Step4 = () => (
 		<div className={styles.pedidoDone}>
 			<img src="/images/CheckPedido.png" width={124} height={104} />
-			<h3>Pedido nº22072204 </h3>
+			<h3>Pedido nº{pedidoId ?? 0} </h3>
 			<p>Seu pedido foi realizado com sucesso! Agora é só aguardar, seu pedido está sendo preparado e você será aviso para fazer a retirada no balcão.</p>
 		</div>
 	)

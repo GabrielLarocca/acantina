@@ -3,24 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Academy;
 use Illuminate\Http\Request;
 
-use App\Models\User;
-use App\Models\Exercise;
-
+use App\Models\Pedido;
+use App\Models\Produto;
+use App\Models\Usuario;
 
 class DashboardController extends Controller {
 	// TODO VAI TER DASHBOARD?
-	// public function get(Request $request) {
-	// 	$total_users = User::where(['usr_active' => 1])->count();
-	// 	$total_exercises = Exercise::count();
-	// 	$total_workouts = Academy::count();
+	public function get(Request $request) {
+		$total_users = Usuario::where(['usr_active' => 1])->count();
+		$total_pedidos = Pedido::count();
+		$total_produtos = Produto::count();
 
-	// 	return response()->json([
-	// 		'total_users' => $total_users,
-	// 		'total_exercises' => $total_exercises,
-	// 		'total_workouts' => $total_workouts
-	// 	]);
-	// }
+		return response()->json([
+			'total_users' => $total_users,
+			'total_pedidos' => $total_pedidos,
+			'total_produtos' => $total_produtos
+		]);
+	}
 }

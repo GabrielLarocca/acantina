@@ -69,16 +69,12 @@ class Utils {
 			return $currentPage;
 		});
 
-		if (isset($wheres)) {
-			if (sizeof($wheres) > 0) {
-				if (isset($join)) {
-					$query = $model::join($join->table, $join->key_1, $join->condition, $join->key_2)->where($wheres);
-				} else {
-					$query = $model::where($wheres);
-				}
+		if (sizeof($wheres) > 0) {
+			if (isset($join)) {
+				$query = $model::join($join->table, $join->key_1, $join->condition, $join->key_2)->where($wheres);
+			} else {
+				$query = $model::where($wheres);
 			}
-		} else {
-			$query = $model::where('id', '!=', '');
 		}
 
 		if (isset($with)) {

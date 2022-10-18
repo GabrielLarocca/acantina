@@ -64,14 +64,15 @@ Route::group(['prefix' => 'web'], function () {
 
 Route::group(['prefix' => 'admin'], function () {
 	Route::post('/auth', [AdminAuthController::class, 'auth']);
-	Route::post('/register', [AdminAuthController::class, 'register']);
+	Route::post('/register', [AdminAuthController::class, 'register']); //ACESSADO APENAS POR ENDPOINT
 
 	Route::group(['middleware' => ['auth:sanctum', 'admin']], function () {
 		/*authenticated routes*/
 		Route::group(['prefix' => 'categoria'], function () {
 			Route::post('/', [AdminCategoriaController::class, 'store']);
 			Route::post('/list', [AdminCategoriaController::class, 'list']);
-			Route::get('/{id}', [AdminCategoriaController::class, 'get']);
+			Route::post('/listSimple', [AdminCategoriaController::class, 'listSimple']);
+			// Route::get('/{id}', [AdminCategoriaController::class, 'get']);
 			Route::delete('/{id}', [AdminCategoriaController::class, 'destroy']);
 		});
 
@@ -91,18 +92,19 @@ Route::group(['prefix' => 'admin'], function () {
 		});
 
 		Route::group(['prefix' => 'usuario'], function () {
-			Route::post('/', [AdminUsuarioController::class, 'store']);
 			Route::post('/list', [AdminUsuarioController::class, 'list']);
-			Route::get('/{id}', [AdminUsuarioController::class, 'get']);
-			Route::delete('/{id}', [AdminUsuarioController::class, 'destroy']);
+			// Route::post('/', [AdminUsuarioController::class, 'store']);
+			// Route::get('/{id}', [AdminUsuarioController::class, 'get']);
+			// Route::delete('/{id}', [AdminUsuarioController::class, 'destroy']);
 		});
 
 		Route::group(['prefix' => 'pedido'], function () {
-			Route::post('/', [AdminPedidoController::class, 'store']);
+			Route::post('/listConcluidos', [AdminPedidoController::class, 'listConcluidos']);
 			Route::post('/list', [AdminPedidoController::class, 'list']);
 			Route::post('/editPedidoStatus', [AdminPedidoController::class, 'update']);
-			Route::get('/{id}', [AdminPedidoController::class, 'get']);
-			Route::delete('/{id}', [AdminPedidoController::class, 'destroy']);
+			// Route::post('/', [AdminPedidoController::class, 'store']);
+			// Route::get('/{id}', [AdminPedidoController::class, 'get']);
+			// Route::delete('/{id}', [AdminPedidoController::class, 'destroy']);
 		});
 	});
 });

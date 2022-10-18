@@ -161,7 +161,6 @@ export default class ProdutosEdit extends Component {
 
 
 											<Row className="justify-content-center">
-
 												{values.photo != null || this.state?.produto?.pro_image_path !== null ?
 													values.photo != null ?
 														<Col sm={4}>

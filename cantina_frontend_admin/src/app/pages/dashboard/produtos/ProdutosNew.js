@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { create } from '../../../crud/produto.crud';
-import { TextField } from "@material-ui/core";
+import { FormLabel, TextField } from "@material-ui/core";
 import { Col, Row } from "react-bootstrap";
 import { Formik } from "formik";
 import Swal from "sweetalert2";
@@ -92,7 +92,9 @@ export default class ProdutosNew extends Component {
 										<div className="row">
 											<div className="col-sm-4">
 												<div className="form-group fg-line">
-													<TextField name="pro_name" placeholder="Nome do produto *" margin="normal" variant="outlined"
+													<FormLabel>Nome do produto</FormLabel>
+
+													<TextField name="pro_name" placeholder="Nome do produto *" variant="outlined"
 														onBlur={handleBlur} onChange={handleChange} value={values.pro_name} helperText={touched.pro_name && errors.pro_name}
 														error={Boolean(touched.pro_name && errors.pro_name)} />
 												</div>
@@ -100,7 +102,9 @@ export default class ProdutosNew extends Component {
 
 											<div className="col-sm-4">
 												<div className="form-group fg-line">
-													<TextField name="pro_description" placeholder="Descrição do produto *" margin="normal" variant="outlined"
+													<FormLabel>Descrição do produto</FormLabel>
+
+													<TextField name="pro_description" placeholder="Descrição do produto *" variant="outlined"
 														onBlur={handleBlur} onChange={handleChange} value={values.pro_description} helperText={touched.pro_description && errors.pro_description}
 														error={Boolean(touched.pro_description && errors.pro_description)} />
 												</div>
@@ -108,7 +112,9 @@ export default class ProdutosNew extends Component {
 
 											<div className="col-sm-4">
 												<div className="form-group fg-line">
-													<TextField name="pro_price" placeholder="Preço *" margin="normal" variant="outlined"
+													<FormLabel>Preço</FormLabel>
+
+													<TextField name="pro_price" placeholder="Preço *" variant="outlined"
 														onBlur={handleBlur} onChange={e => handleChange(formatBRLInput(e))} value={values.pro_price} helperText={touched.pro_price && errors.pro_price}
 														error={Boolean(touched.pro_price && errors.pro_price)} />
 												</div>
@@ -116,6 +122,8 @@ export default class ProdutosNew extends Component {
 
 											<div className="col-sm-4">
 												<div className="form-group fg-line">
+													<FormLabel>Categoria</FormLabel>
+
 													<BetterSelect name="pro_category_id" blankOption value={values.pro_category_id} onBlur={handleBlur} onChange={handleChange} placeholder="Categoria *"
 														helperText={touched.pro_category_id && errors.pro_category_id} error={Boolean(touched.pro_category_id && errors.pro_category_id)}>
 														{this.state.categorias.map((categoria, index) => <option key={index} value={categoria.id}>{categoria.cat_name}</option>)}

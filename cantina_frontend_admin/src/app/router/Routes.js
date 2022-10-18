@@ -14,6 +14,9 @@ import UsuariosIndex from "../pages/dashboard/usuarios/UsuariosIndex";
 import Logout from "../pages/auth/Logout";
 import ProdutosNew from "../pages/dashboard/produtos/ProdutosNew";
 import ProdutosEdit from "../pages/dashboard/produtos/ProdutosEdit";
+import CuponsNew from "../pages/dashboard/cupons/CuponsNew";
+import CategoriasIndex from "../pages/dashboard/categorias/CategoriasIndex";
+import CategoriasNew from "../pages/dashboard/categorias/CategoriasNew";
 
 const Routes = () => {
 	const { isAuthorized } = useSelector(({ auth }) => ({ isAuthorized: auth.user != null }));
@@ -22,14 +25,15 @@ const Routes = () => {
 	return (
 		<Switch>
 			{!isAuthorized ?
-				<Route exact path="/" element={<AuthPage />} />
+				<Route exact path="/auth" element={<AuthPage />} />
 				:
 				(
 					<>
-						<Route exact path="/" element={<Navigate to={'/pedidos'} />} />
+						<Route exact path="/dashboard" element={<Navigate to={'/pedidos'} />} />
 
 						{/* <Route exact path="/dashboard" element={<Dashboard />} /> */}
 
+						{/* pedidos crud */}
 						<Route exact path="/pedidos" element={<PedidosIndex />} />
 						<Route exact path="/pedidos/new" element={<PedidosIndex />} />
 						<Route path="/pedidos/edit/:id" element={<PedidosIndex />} />
@@ -39,13 +43,18 @@ const Routes = () => {
 						<Route exact path="/produtos/new" element={<ProdutosNew />} />
 						<Route path="/produtos/edit/:id" element={<ProdutosEdit />} />
 
+						{/* cupons crud */}
 						<Route exact path="/cupons" element={<CuponsIndex />} />
-						<Route exact path="/cupons/new" element={<CuponsIndex />} />
-						<Route path="/cupons/edit/:id" element={<CuponsIndex />} />
+						<Route exact path="/cupons/new" element={<CuponsNew />} />
 
+						{/* categorias crud */}
+						<Route exact path="/categorias" element={<CategoriasIndex />} />
+						<Route exact path="/categorias/new" element={<CategoriasNew />} />
+
+						{/* usuario crud */}
 						<Route exact path="/usuarios" element={<UsuariosIndex />} />
 
-						{/*<Route exact path="/logout" element={<Logout />} />*/}
+						<Route exact path="/logout" element={<Logout />} />
 					</>
 
 

@@ -5,6 +5,8 @@ import Coupon3FillIcon from 'remixicon-react/Coupon3FillIcon';
 import User3FillIcon from 'remixicon-react/User3FillIcon';
 import Dashboard2FillIcon from 'remixicon-react/Dashboard2FillIcon';
 import LogoutBoxLineIcon from 'remixicon-react/LogoutBoxLineIcon';
+import CupFillIcon from 'remixicon-react/CupFillIcon';
+
 import { Link } from "react-router-dom";
 import * as auth from "../app/store/ducks/auth.duck";
 import { connect } from "react-redux";
@@ -16,6 +18,7 @@ function Layout(props) {
 		{ name: 'Produtos', path: '/produtos' },
 		{ name: 'Cupons', path: '/cupons' },
 		{ name: 'Usuários', path: '/usuarios' },
+		{ name: 'Categorias', path: '/categorias' },
 	]
 
 	const iconSwitch = (icon) => {
@@ -27,13 +30,16 @@ function Layout(props) {
 				return <CalendarTodoFillIcon size={16} />
 
 			case 'Produtos':
-				return <PriceTag3FillIcon size={16} />
+				return <CupFillIcon size={16} />
 
 			case 'Cupons':
 				return <Coupon3FillIcon size={16} />
 
 			case 'Usuários':
 				return <User3FillIcon size={16} />
+
+			case 'Categorias':
+				return <PriceTag3FillIcon size={16} />
 
 			default:
 				break;

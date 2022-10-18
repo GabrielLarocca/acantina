@@ -207,7 +207,7 @@ export default function Header(props) {
 						<p className={styles.precoTotalFooter}>{formatBRL(total)}</p>
 					</div>
 
-					<button onClick={handleFinalizarPedido} disabled={carrinho?.produtos?.length == 0} className={styles.btnFooter}>
+					<button onClick={handleFinalizarPedido} disabled={carrinho.length == 0} className={styles.btnFooter}>
 						Finalizar pedido
 					</button>
 				</footer>

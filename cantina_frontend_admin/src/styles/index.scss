@@ -21,6 +21,20 @@ input{
 	font-family: 'Inter', sans-serif !important;
 }
 
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #0CA364;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
 .MuiOutlinedInput-input{
 	padding: 14px 16px !important;
 	font-family: 'Inter', sans-serif !important;
@@ -170,7 +184,7 @@ input{
 }
 
 .p-paginator-page.p-highlight {
-    background-color: #147dbf !important;
+    background-color: #0CA364 !important;
 }
 
 .p-paginator-element.p-link {
@@ -208,6 +222,11 @@ input{
     padding: 18px !important;
 	border-top-right-radius: 8px !important;
     border-top-left-radius: 8px !important;
+
+	button{
+		min-width: 200px !important;
+		width: auto;
+	}
 }
 
 .p-datatable-loading-overlay.p-component-overlay {
@@ -550,4 +569,36 @@ a.btn:hover {
 
 .MuiFormControl-root{
 	width: 100%;
+}
+
+.form-group{
+	margin-bottom: 24px;
+
+	label{
+		font-family: 'Inter', sans-serif;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 14px;
+		line-height: 20px;
+		color: #56585A;
+		margin-bottom: 8px;
+	}
+}
+
+.btn-primary {
+	background: #0CA364 !important;
+
+	&:hover{
+		background: #107b4f !important;
+	}
+
+	&:active{
+		background: #0f5a3b !important;
+		border-color: #0f5a3b !important;
+	}
+
+	&:focus {
+		background: #0f5a3b !important;
+		border-color: #0f5a3b !important;
+	}
 }

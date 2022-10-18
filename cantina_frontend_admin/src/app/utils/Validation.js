@@ -59,6 +59,29 @@ export const validateProduto = (values) => {
 	return errors;
 };
 
+export const validateCupom = (values) => {
+	let map = new Map();
+
+	map.set('cou_description', 'Descrição');
+	map.set('cou_discount', 'Desconto');
+	map.set('cou_initial_date', 'Data inicial');
+	map.set('cou_finish_date', 'Data Final');
+
+	let errors = createFormikValidation(map, values);
+
+	return errors;
+};
+
+export const validateCategoria = (values) => {
+	let map = new Map();
+
+	map.set('cat_name', 'Nome da categoria');
+
+	let errors = createFormikValidation(map, values);
+
+	return errors;
+}
+
 export const formatBRLNoSign = (value) => {
 	const formatter = new Intl.NumberFormat("pt-BR", {
 		style: "currency",

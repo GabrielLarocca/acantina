@@ -11,7 +11,7 @@ class Logout extends Component {
 	render() {
 		const { hasAuthToken } = this.props;
 
-		return hasAuthToken ? <Navigate to="/dashboard" /> : <Navigate to="/" />;
+		return hasAuthToken && <Navigate to="/auth" />
 	}
 }
 

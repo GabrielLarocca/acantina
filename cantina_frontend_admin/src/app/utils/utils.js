@@ -16,7 +16,7 @@ export function setupAxios(axios, store) {
 	axios.interceptors.response.use(function (response) {
 		return response;
 	}, function (error) {
-
+		console.log(error, 'axios caiu aq')
 		if (error.response.status == 401) {
 			store.dispatch({ type: actionTypes.Logout, payload: null });
 		}

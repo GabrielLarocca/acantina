@@ -10,6 +10,7 @@ use App\Models\Cupom;
 use App\Models\Produto;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class CupomController extends Controller {
 	public function list(Request $request) {
@@ -30,7 +31,6 @@ class CupomController extends Controller {
 		$errors = array();
 
 		$validator = Validator::make($request->all(), [
-			'cou_code' => 'required',
 			'cou_discount' => 'required',
 			'cou_description' => 'required',
 			'cou_initial_date'  => 'required',
@@ -47,45 +47,12 @@ class CupomController extends Controller {
 
 		$obj = new Cupom();
 
-		$obj->cou_code = $request->cou_code;
+		$obj->cou_code = strtoupper(Str::random(5));
 		$obj->cou_discount = $request->cou_discount;
 		$obj->cou_description = $request->cou_description;
 		$obj->cou_initial_date = $request->cou_initial_date;
 		$obj->cou_finish_date = $request->cou_finish_date;
 		$obj->active = 1;
-
-		$obj->save();
-
-		return response()->json($obj);
-	}
-
-	public function update(Request $request, $id) {
-		//faz sentido?
-		$errors = array();
-
-		$validator = Validator::make($request->all(), [
-			'cou_code' => 'required',
-			'cou_discount' => 'required',
-			'cou_description' => 'required',
-			'cou_initial_date'  => 'required',
-			'cou_finish_date'  => 'required',
-		]);
-
-		if ($validator->fails()) {
-			foreach ($validator->errors()->getMessages() as $item) {
-				array_push($errors, $item[0]);
-			}
-
-			return response()->json(['errors' => $errors]);
-		}
-
-		$obj = Cupom::where(['active' => 1, 'id' => $id])->firstOrFail();
-
-		$obj->cou_code = $request->cou_code;
-		$obj->cou_discount = $request->cou_discount;
-		$obj->cou_description = $request->cou_description;
-		$obj->cou_initial_date = $request->cou_initial_date;
-		$obj->cou_finish_date = $request->cou_finish_date;
 
 		$obj->save();
 
