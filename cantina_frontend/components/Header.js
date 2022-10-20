@@ -15,6 +15,7 @@ import styles from '../styles/Header.module.css'
 import { setLogout } from '../store/ducks/user';
 import { useMediaQuery } from 'react-responsive';
 import Link from 'next/link';
+import { Constants } from '../helpers/constants';
 
 export default function Header(props) {
 	const [modalCarrinho, setModalCarrinho] = useState(false);
@@ -74,8 +75,8 @@ export default function Header(props) {
 
 	const ProdutoCard = ({ produto }) => (
 		<div className={styles.cardCarrinho}>
-			<div className={styles.imagemCarrinho} style={produto.produto?.imagem ? { backgroundImage: `url(${produto.produto?.imagem})` } : {}} />
-
+			<div className={styles.imagemCarrinho} style={produto?.produto?.pro_image_path ? { backgroundImage: `url(${Constants.imageUrl + produto?.produto?.pro_image_path})` } : {}} />
+			{console.log(produto)}
 			<div className={styles.infoCarrinho}>
 				<p className={styles.nomeCarrinho}>{produto.produto?.pro_name}</p>
 				<p className={styles.quantidadeCarrinho}>{produto.quantity}  {produto.quantity > 1 ? 'unidades' : 'unidade'}</p>

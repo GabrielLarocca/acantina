@@ -12,7 +12,6 @@ import { formatBRL, formatBRLInput, limparMoeda } from "../../../utils/utils";
 import { Constants } from "../../../utils/Constants";
 import BetterSelect from "../../../components/BetterSelect";
 import { getProductCategory } from "../../../crud/categoria.crud";
-import { query } from "react-router-dom";
 
 export default class ProdutosEdit extends Component {
 	constructor() {
@@ -46,7 +45,6 @@ export default class ProdutosEdit extends Component {
 
 		get(query).then((res) => {
 			if (res.status == 200) {
-				console.log(res.data)
 				this.setState({ produto: res.data });
 			} else {
 				return Swal.fire('Ops', res.data.errors[0] ?? 'Parece que houve um problema. Por favor, entre em contato com o suporte.', 'error');

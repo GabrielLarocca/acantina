@@ -75,11 +75,11 @@ export default function Pedido() {
 
 						<hr className={styles.line} />
 
-						<div className={styles.descontoContainer}>
+						{/* <div className={styles.descontoContainer}>
 							<p>Desconto</p>
 
 							<p>-{formatBRL(12.90)}</p>
-						</div>
+						</div> */}
 
 						<hr className={styles.line} />
 

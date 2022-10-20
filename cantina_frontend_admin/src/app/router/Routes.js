@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import ErrorsPage from "../pages/errors/ErrorsPage";
 
 import AuthPage from "../pages/auth/AuthPage";
-import Dashboard from "../pages/dashboard/Dashboard";
+// import Dashboard from "../pages/dashboard/Dashboard";
 
 import PedidosIndex from "../pages/dashboard/pedidos/PedidosIndex";
 import ProdutosIndex from "../pages/dashboard/produtos/ProdutosIndex";

@@ -16,7 +16,6 @@ export function setupAxios(axios, store) {
 	axios.interceptors.response.use(function (response) {
 		return response;
 	}, function (error) {
-		console.log(error, 'axios caiu aq')
 		if (error.response.status == 401) {
 			store.dispatch({ type: actionTypes.Logout, payload: null });
 		}
@@ -45,12 +44,7 @@ export function removeStorage(key) {
 		localStorage.setItem(key, "");
 		localStorage.setItem(key + "_expiresIn", "");
 	} catch (e) {
-		console.log(
-			"removeStorage: Error removing key [" +
-			key +
-			"] from localStorage: " +
-			JSON.stringify(e)
-		);
+		console.log("removeStorage: Error removing key [" + key + "] from localStorage: " + JSON.stringify(e));
 		return false;
 	}
 	return true;
@@ -73,12 +67,7 @@ export function getStorage(key) {
 			const value = localStorage.getItem(key);
 			return value;
 		} catch (e) {
-			console.log(
-				"getStorage: Error reading key [" +
-				key +
-				"] from localStorage: " +
-				JSON.stringify(e)
-			);
+			console.log("getStorage: Error reading key [" + key + "] from localStorage: " + JSON.stringify(e));
 			return null;
 		}
 	}

@@ -51,21 +51,6 @@ class AuthController extends Controller {
 		return response()->json(['user' => $user]);
 	}
 
-	function url_get_contents($url) {
-		if (!function_exists('curl_init')) {
-			die('CURL is not installed!');
-		}
-
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$output = curl_exec($ch);
-		curl_close($ch);
-
-		Log::info($output);
-		return $output;
-	}
-
 	private function authenticateUser($user) {
 		$token = $user->createToken('usuario', ['api:web'])->plainTextToken;
 

@@ -10,57 +10,8 @@ use App\Models\Arquivo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Log;
 
 class Utils {
-
-	static public function addAttachment($file) {
-		$imageName = time() . "-" . rand(1000, 1000000) . '.' . $file->getClientOriginalExtension();
-
-		$att = new Arquivo;
-
-		$att->fil_name = $imageName;
-		$att->fil_size = filesize($file);
-		$att->fil_img = file_get_contents($file);
-
-		$att->save();
-
-		$file->move(public_path('images'), $imageName);
-
-		return $att;
-	}
-
-	static function getImage($name) {
-		Log::info(['name' => $name]);
-
-		$productID = explode(".", $name);
-
-
-		// $rendered_buffer= Product::all()->find($productID[0])->image;
-
-		// $response = Response::make($rendered_buffer);
-		// $response->header('Content-Type', 'image/png');
-		// $response->header('Cache-Control','max-age=2592000');
-		// return $response;
-	}
-
-	static function parseDateTime($string, $timeZone = null) {
-		$date = new DateTime($string, $timeZone ? $timeZone : new DateTimeZone('UTC'));
-
-		if ($timeZone) {
-			$date->setTimezone($timeZone);
-		}
-
-		return $date;
-	}
-
-	static function clearString($string) {
-		$string = str_replace(' ', '', $string);
-		$string = str_replace('-', '', $string);
-		$string = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
-
-		return preg_replace('/-+/', '-', $string);
-	}
 
 	static public function createDataTableResult(Request $request, $model, $wheres, $columnsToFilter, $columnsRelationshipToFilter = null, $sortField = '', $sortOrder = 'asc', $with = null, $join = null) {
 		$currentPage = $request->page + 1;

@@ -35,7 +35,7 @@
 }
 
 .cardProduto:hover {
-	transform: scale(1.1);
+	transform: scale(1.02);
 }
 
 .imagemProduto {
@@ -181,5 +181,19 @@
 @media screen and (max-width: 576px) {
 	.produtosContainer {
 		grid-template-columns: 1fr;
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.cardProduto {
+		height: auto;
+	}
+
+	.imagemProduto {
+		height: 200px;
+	}
+
+	.cardProduto:hover {
+		transform: scale(1);
 	}
 }

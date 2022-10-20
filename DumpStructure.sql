@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `cantina` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `cantina`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Linux (x86_64)
 --
 -- Host: localhost    Database: cantina
@@ -71,7 +73,7 @@ CREATE TABLE `cart_products` (
   KEY `fk_cart_products_2_idx` (`product_id`),
   CONSTRAINT `fk_cart_products_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`),
   CONSTRAINT `fk_cart_products_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,34 +152,15 @@ CREATE TABLE `order` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `ord_state_payment` text,
   `ord_nf` text,
+  `ord_coupon_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_order_1_idx` (`ord_cart_id`),
   KEY `fk_order_2_idx` (`ord_user_id`),
+  KEY `fk_order_3_idx` (`ord_coupon_id`),
   CONSTRAINT `fk_order_1` FOREIGN KEY (`ord_cart_id`) REFERENCES `cart` (`id`),
-  CONSTRAINT `fk_order_2` FOREIGN KEY (`ord_user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `order_products`
---
-
-DROP TABLE IF EXISTS `order_products`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order_products` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `product_id` int unsigned NOT NULL,
-  `quantity` int DEFAULT NULL,
-  `order_id` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_order_products_1_idx` (`order_id`),
-  KEY `fk_order_products_2_idx` (`product_id`),
-  CONSTRAINT `fk_order_products_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
-  CONSTRAINT `fk_order_products_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `fk_order_2` FOREIGN KEY (`ord_user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_order_3` FOREIGN KEY (`ord_coupon_id`) REFERENCES `coupons` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +182,7 @@ CREATE TABLE `personal_access_tokens` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `token_UNIQUE` (`token`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,7 +205,7 @@ CREATE TABLE `products` (
   PRIMARY KEY (`id`),
   KEY `fk_products_2_idx` (`pro_category_id`),
   CONSTRAINT `fk_products_2` FOREIGN KEY (`pro_category_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,4 +246,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-18 14:25:44
+-- Dump completed on 2022-10-20  9:18:54
