@@ -5,7 +5,6 @@ namespace App\Helpers;
 use DateTime;
 use DateTimeZone;
 use App\Models\File;
-use App\Helpers\S3Util;
 use App\Models\Arquivo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

@@ -29,11 +29,14 @@ Altere ainda, no arquivo .env, as informações de DB_USERNAME e
 DB_PASSWORD com as credenciais usadas no acesso do seu banco de 
 dados.
 
-Por fim, rode o servidor com 
+Agora, rode o servidor com 
 ```bash
   php artisan serve
 ```
-
+Por fim, execute o seguinte comando:
+```bash
+php artisan db:seed
+```
 Na pasta 'frontend_admin', no arquivo .env, altere o conteúdo 
 de PUBLIC_APP_URL para o local que está rodando seu backend.
 Por exemplo: PUBLIC_APP_URL=http://localhost:8000.
@@ -56,3 +59,7 @@ Posteriormente, execute os seguintes comandos, consecutivamente:
 ```bash
   npm run dev
 ```
+Para realizar o login no painel do funcionário (admin), as
+credenciais que devem ser usadas são:
+Usuário: admin@admin.com
+Senha: 123456

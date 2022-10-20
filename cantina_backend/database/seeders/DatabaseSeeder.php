@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Exercise;
-use App\Models\User;
+use App\Models\Admin;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 
@@ -16,12 +15,12 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run() {
 
-		User::factory(100)->create();
-
-		$this->call([
-			// TherapistPatientSeeder::class,
-			//ExerciseSeeder::class,
-			//ExerciseShareSeeder::class
+		$admin = Admin::create([
+			'adm_name' => 'admin',
+			'adm_email' => 'admin@admin.com',
+			'adm_password' => bcrypt('123456'),
 		]);
+
+		$admin->save();
 	}
 }
