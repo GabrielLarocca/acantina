@@ -97,21 +97,33 @@ export default function Header(props) {
 				</div>
 			</Link>
 
-			<Link href={'/pedidos'}>
-				<div className={router.route.includes('pedidos') ? styles.selectedItemLateral : styles.itemLateral}>
-					Seus Pedidos
-				</div>
-			</Link>
+			{user ? (
+				<>
+					<Link href={'/pedidos'}>
+						<div className={router.route.includes('pedidos') ? styles.selectedItemLateral : styles.itemLateral}>
+							Seus Pedidos
+						</div>
+					</Link>
 
-			<Link href={'/perfil'}>
-				<div className={router.route.includes('perfil') ? styles.selectedItemLateral : styles.itemLateral}>
-					Perfil
-				</div>
-			</Link>
+					<Link href={'/perfil'}>
+						<div className={router.route.includes('perfil') ? styles.selectedItemLateral : styles.itemLateral}>
+							Perfil
+						</div>
+					</Link>
 
-			<div className={styles.itemLateral} onClick={logout}>
-				Sair
-			</div>
+					<div className={styles.itemLateral} onClick={logout}>
+						Sair
+					</div>
+				</>
+			) : (
+				<>
+					<Link href={'/auth'}>
+						<div className={router.route.includes('auth') ? styles.selectedItemLateral : styles.itemLateral}>
+							Login
+						</div>
+					</Link>
+				</>
+			)}
 		</Menu>
 	)
 
