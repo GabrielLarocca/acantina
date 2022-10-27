@@ -33,10 +33,18 @@ Agora, rode o servidor com
 ```bash
   php artisan serve
 ```
+
+Agora, atualize a pasta de alocação de imagens.
+
+```bash
+ php artisan storage:link
+```
+
 Por fim, execute o seguinte comando:
 ```bash
 php artisan db:seed
 ```
+
 Na pasta 'frontend_admin', no arquivo .env, altere o conteúdo 
 de PUBLIC_APP_URL para o local que está rodando seu backend.
 Por exemplo: PUBLIC_APP_URL=http://localhost:8000.

@@ -29,7 +29,9 @@ export default class BetterPedidoTable extends Component {
 	}
 
 	componentDidMount() {
+		// setInterval(() => {
 		this.onPage(this.state);
+		// }, [30000])
 	}
 
 	doGlobalFiltering(value) {
