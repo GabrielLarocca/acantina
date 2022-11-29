@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 class CategoriaController extends Controller {
 
 	public function listSimple(Request $request) {
-		return response()->json(Categoria::where(['cat_ativo' => 1])->get());
+		return response()->json(Categoria::where(['cat_ativo' => 1])->orderBy('cat_name', 'asc')->get());
 	}
 
 	public function list(Request $request) {
@@ -30,7 +30,7 @@ class CategoriaController extends Controller {
 		$errors = array();
 
 		$validator = Validator::make($request->all(), [
-			'cat_name' => 'required',
+			'cat_name' => 'required|unique:category',
 		]);
 
 		if ($validator->fails()) {

@@ -12,6 +12,7 @@ import { formatBRL, formatBRLInput, limparMoeda } from "../../../utils/utils";
 import { Constants } from "../../../utils/Constants";
 import BetterSelect from "../../../components/BetterSelect";
 import { getProductCategory } from "../../../crud/categoria.crud";
+import { toast } from "react-toastify";
 
 export default class ProdutosEdit extends Component {
 	constructor() {
@@ -74,7 +75,7 @@ export default class ProdutosEdit extends Component {
 					success: !Boolean(res.data.errors),
 				});
 
-				return Swal.fire('Ok', 'Tudo certo, o produto foi criado.', 'success');
+				return toast('Tudo certo, o produto foi editado.', { type: "success" });
 			} else {
 				return Swal.fire('Ops', res.data.errors[0] ?? 'Parece que houve um problema. Por favor, entre em contato com o suporte.', 'error');
 			}

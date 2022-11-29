@@ -7,6 +7,7 @@ import AddFillIcon from 'remixicon-react/AddFillIcon';
 import EditBoxLineIcon from 'remixicon-react/EditBoxLineIcon';
 import DeleteBinLineIcon from 'remixicon-react/DeleteBinLineIcon';
 import { TextField } from '@material-ui/core';
+import { toast } from 'react-toastify';
 
 export default class BetterDataTable extends Component {
 	constructor() {
@@ -83,8 +84,9 @@ export default class BetterDataTable extends Component {
 					this.props.deleteHandler(id).then(() => {
 						this.refreshTable();
 
-						Swal.fire('Tudo certo!', `${this.props.btnTitle} removido com sucesso!`, 'success');
 						this.setState({ loading: false });
+
+						return toast(`${this.props.btnTitle} removido com sucesso!`, { type: "success" });
 					}).catch(({ response }) => {
 						Swal.fire('Ops!', response?.data?.errors?.[0] ?? `Houve um problema ao remover o ${this.props.btnTitle}. Entre em contato com o suporte.`, 'error');
 						this.setState({ loading: false });

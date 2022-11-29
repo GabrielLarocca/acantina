@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import Layout from "../../../../layout/Layout";
 import Loading from "../../../components/Loading";
 import { validateCategoria } from "../../../utils/Validation";
+import { ToastContainer, toast } from 'react-toastify';
 
 export default class CategoriasNew extends Component {
 	constructor() {
@@ -30,7 +31,8 @@ export default class CategoriasNew extends Component {
 					success: !Boolean(res.data.errors),
 				});
 
-				return Swal.fire('Ok', 'Tudo certo, a categoria foi criada.', 'success');
+
+				return toast('Tudo certo, a categoria foi criada.', { type: "success" });
 			} else {
 				return Swal.fire('Ops', res.data.errors[0] ?? 'Parece que houve um problema. Por favor, entre em contato com o suporte.', 'error');
 			}

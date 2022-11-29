@@ -9,6 +9,7 @@ import DeleteBinLineIcon from 'remixicon-react/DeleteBinLineIcon';
 import { TextField } from '@material-ui/core';
 import { formatBRL } from '../utils/Validation';
 import { editPedidoStatus } from '../crud/pedido.crud';
+import { toast } from 'react-toastify';
 
 export default class BetterPedidoTable extends Component {
 	constructor() {
@@ -88,8 +89,9 @@ export default class BetterPedidoTable extends Component {
 					this.props.deleteHandler(id).then(() => {
 						this.refreshTable();
 
-						Swal.fire('Tudo certo!', `${this.props.btnTitle} removido com sucesso!`, 'success');
 						this.setState({ loading: false });
+
+						return toast('Tudo certo, o pedido foi removido.', { type: "success" });
 					}).catch((err) => {
 						Swal.fire('Ops!', `Houve um problema ao remover o ${this.props.btnTitle}. Entre em contato com o suporte.`, 'error');
 						this.setState({ loading: false });
@@ -146,7 +148,7 @@ export default class BetterPedidoTable extends Component {
 
 				this.refreshTable();
 
-				return Swal.fire('Ok', 'Tudo certo, o status foi atualizado.', 'success');
+				return toast('Tudo certo, o status foi atualizado.', { type: "success" });
 			} else {
 				return Swal.fire('Ops', res.data.errors[0] ?? 'Parece que houve um problema. Por favor, entre em contato com o suporte.', 'error');
 			}

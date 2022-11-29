@@ -4,10 +4,8 @@ import ReactDOM from 'react-dom/client';
 import store, { persistor } from "./app/store/store";
 import axios from "axios";
 import { setupAxios } from "./app/utils/utils";
-import "./index.css";
 import App from './App';
-
-// import "@fortawesome/fontawesome-free/css/all.min.css";
+import "./index.css";
 
 const { PUBLIC_URL } = process.env;
 

@@ -9,8 +9,7 @@ import Layout from "../../../../layout/Layout";
 import Loading from "../../../components/Loading";
 import { validateCupom, validateProduto } from "../../../utils/Validation";
 import { formatBRLInput, limparMoeda } from "../../../utils/utils";
-import { Constants } from "../../../utils/Constants";
-import BetterSelect from "../../../components/BetterSelect";
+import { toast } from "react-toastify";
 
 export default class CuponsNew extends Component {
 	constructor() {
@@ -36,7 +35,7 @@ export default class CuponsNew extends Component {
 					success: !Boolean(res.data.errors),
 				});
 
-				return Swal.fire('Ok', 'Tudo certo, o cupom foi criado.', 'success');
+				return toast('Tudo certo, o cupom foi criado.', { type: "success" });
 			} else {
 				return Swal.fire('Ops', res.data.errors[0] ?? 'Parece que houve um problema. Por favor, entre em contato com o suporte.', 'error');
 			}
