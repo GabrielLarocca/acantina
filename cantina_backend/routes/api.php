@@ -14,17 +14,7 @@ use App\Http\Controllers\Admin\ProdutoController as AdminProdutoController;
 use App\Http\Controllers\Admin\UsuarioController as AdminUsuarioController;
 use App\Http\Controllers\Admin\CupomController as AdminCupomController;
 use App\Http\Controllers\Admin\PedidoController as AdminPedidoController;
-
-/*
-  |--------------------------------------------------------------------------
-  | API Routes
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register API routes for your application. These
-  | routes are loaded by the RouteServiceProvider within a group which
-  | is assigned the "api" middleware group. Enjoy building your API!
-  |
- */
+use App\Http\Controllers\Admin\RelatorioController as AdminRelatorioController;
 
 Route::group(['prefix' => 'web'], function () {
 	Route::post('/auth', [AuthController::class, 'auth']);
@@ -93,18 +83,17 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::group(['prefix' => 'usuario'], function () {
 			Route::post('/list', [AdminUsuarioController::class, 'list']);
-			// Route::post('/', [AdminUsuarioController::class, 'store']);
-			// Route::get('/{id}', [AdminUsuarioController::class, 'get']);
-			// Route::delete('/{id}', [AdminUsuarioController::class, 'destroy']);
 		});
 
 		Route::group(['prefix' => 'pedido'], function () {
 			Route::post('/listConcluidos', [AdminPedidoController::class, 'listConcluidos']);
 			Route::post('/list', [AdminPedidoController::class, 'list']);
 			Route::post('/editPedidoStatus', [AdminPedidoController::class, 'update']);
-			// Route::post('/', [AdminPedidoController::class, 'store']);
-			// Route::get('/{id}', [AdminPedidoController::class, 'get']);
-			// Route::delete('/{id}', [AdminPedidoController::class, 'destroy']);
+		});
+
+		Route::group(['prefix' => 'relatorio'], function () {
+			Route::post('/relatorio1', [AdminRelatorioController::class, 'getRelatorio1']);
+			Route::post('/relatorio2', [AdminRelatorioController::class, 'getRelatorio2']);
 		});
 	});
 });
