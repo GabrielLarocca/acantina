@@ -19,6 +19,7 @@ function Layout(props) {
 		{ name: 'Cupons', path: '/cupons' },
 		{ name: 'Usuários', path: '/usuarios' },
 		{ name: 'Categorias', path: '/categorias' },
+		{ name: 'Relatórios', path: '/relatorios' },
 	]
 
 	const iconSwitch = (icon) => {
@@ -40,6 +41,9 @@ function Layout(props) {
 
 			case 'Categorias':
 				return <PriceTag3FillIcon size={16} />
+
+			case 'Relatórios':
+				return <Dashboard2FillIcon size={16} />
 
 			default:
 				break;

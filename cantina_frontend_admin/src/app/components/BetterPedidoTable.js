@@ -238,6 +238,12 @@ export default class BetterPedidoTable extends Component {
 									</div>
 								))}
 
+								<div className="footerDetalhe" style={{ height: 'auto' }}>
+									<p>Cupom</p>
+
+									<p className="price">- {formatBRL(this.state.pedidoState?.nf?.desconto?.cou_discount)}</p>
+								</div>
+
 								<div className="footerDetalhe">
 									<p>Total</p>
 

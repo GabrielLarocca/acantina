@@ -162,6 +162,10 @@ label.p-dropdown-label.p-inputtext {
 	box-shadow: 0 0 0 3px #0ca36485 !important;
 }
 
+.PrivateNotchedOutline-root-5 {
+	top: 0 !important;
+}
+
 @media (min-width: 576px) {
 	.modal-dialog {
 		max-width: initial;

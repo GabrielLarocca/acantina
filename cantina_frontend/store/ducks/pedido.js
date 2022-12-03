@@ -16,3 +16,7 @@ export const getPedido = pedidoId => {
 export const deletePedido = pedidoId => {
 	return axios.delete(`${Constants.baseUrl}/pedido/${pedidoId}`);
 }
+
+export const checkCupomExist = data => {
+	return axios.post(`${Constants.baseUrl}/pedido/checkCupom`, data);
+}

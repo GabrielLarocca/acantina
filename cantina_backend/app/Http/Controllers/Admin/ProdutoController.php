@@ -20,7 +20,7 @@ class ProdutoController extends Controller {
 			'pro_active' => 1
 		);
 
-		return response()->json(["data" => Utils::createDataTableResult($request, Produto::class, $wheres, $columnsToFilter)]);
+		return response()->json(["data" => Utils::createDataTableResult($request, Produto::class, $wheres, $columnsToFilter, null, null, null, ['categoria'])]);
 	}
 
 	public function get(Request $request, $id) {

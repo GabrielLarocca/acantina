@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Helpers\Utils;
 use App\Models\Carrinho;
 use App\Models\CarrinhoProduto;
+use App\Models\Cupom;
+use App\Models\CupomUsuario;
 use App\Models\Pedido;
 use App\Models\User;
 use Illuminate\Container\Container;
@@ -34,6 +36,24 @@ class PedidoController extends Controller {
 		$carrinho = Carrinho::where(["car_user_id" => $request->user()->id])->with('produtos')->firstOrFail();
 		$carrinhoProdutos = CarrinhoProduto::where(["cart_id" => $carrinho->id])->with('produto')->get();
 		$somaTotalCarrinho = 0;
+		$cupom = null;
+
+		if (isset($request->cupom)) {
+			$cupom = Cupom::where(['cou_code' => $request->cupom])->first();
+
+			$cupomUsuario = CupomUsuario::where(['user_id' => $request->user()->id, 'coupon_id' => $cupom->id])->first();
+
+			if ($cupomUsuario) {
+				return response()->json(['errors' => "Não foi possivel aplicar este cupom, ele já foi utilizado."], 422);
+			} else {
+				$obj = new CupomUsuario();
+
+				$obj->coupon_id = $cupom->id;
+				$obj->user_id = $request->user()->id;
+
+				$obj->save();
+			}
+		}
 
 		foreach ($carrinhoProdutos as $product) {
 			$totalValue = number_format($product->produto->pro_price * $product->quantity, 2);
@@ -45,9 +65,14 @@ class PedidoController extends Controller {
 			$somaTotalCarrinho = number_format($somaTotalCarrinho + $product->totalPrice, 2);
 		}
 
+		if (isset($cupom)) {
+			$somaTotalCarrinho = number_format($somaTotalCarrinho - $cupom->cou_discount, 2);
+		}
+
 		$nfe = [
 			"data" => $carrinhoProdutos,
-			"total" => $somaTotalCarrinho
+			"total" => $somaTotalCarrinho,
+			"desconto" => $cupom ? $cupom : null
 		];
 
 		$nfe = json_encode($nfe);
@@ -96,6 +121,18 @@ class PedidoController extends Controller {
 			return response(null, 200);
 		} else {
 			return response()->json(['errors' => ["O pedido não pode ser cancelado, entre em contato com a cantina!"]], 422);
+		}
+	}
+
+	public function checkCupom(Request $request) {
+		$cupom = Cupom::where(['cou_code' => $request->cupom])->firstOrFail();
+
+		$cupomUsuario = CupomUsuario::where(['user_id' => $request->user()->id, 'coupon_id' => $cupom->id])->first();
+
+		if ($cupomUsuario) {
+			return response()->json(['errors' => "Não foi possivel aplicar este cupom, ele já foi utilizado."], 422);
+		} else {
+			return response()->json($cupom);
 		}
 	}
 }

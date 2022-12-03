@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Utils;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -17,10 +18,22 @@ class RelatorioController extends Controller {
 		$total_pedidos = Pedido::count();
 		$total_produtos = Produto::count();
 
+		$vendasHoje = Pedido::whereDate('created_at', '=', Carbon::today()->toDateString())->count();
+		$vendasSemana = Pedido::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+		$vendasMes = Pedido::whereMonth('created_at', Carbon::now()->month)->count();
+		$vendasAno = Pedido::whereBetween('created_at', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->count();
+
+		Carbon::setWeekStartsAt(Carbon::MONDAY); //segunda começa semana
+		Carbon::setWeekEndsAt(Carbon::SUNDAY); //domingo termina
+
 		return response()->json([
 			'total_users' => $total_users,
 			'total_pedidos' => $total_pedidos,
-			'total_produtos' => $total_produtos
+			'total_produtos' => $total_produtos,
+			"vendaHoje" => $vendasHoje,
+			"vendaSemana" => $vendasSemana,
+			"vendaMes" => $vendasMes,
+			"vendaAno" => $vendasAno
 		]);
 	}
 
@@ -33,24 +46,8 @@ class RelatorioController extends Controller {
 			'ord_state_order' => 'finalizado'
 		);
 
-		Carbon::setWeekStartsAt(Carbon::MONDAY); //segunda começa semana
-		Carbon::setWeekEndsAt(Carbon::SUNDAY); //domingo termina
-
-		$vendasHoje = Pedido::whereDate('created_at', '=', Carbon::today()->toDateString())->count();
-		$vendasSemana = Pedido::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
-		$vendasMes = Pedido::whereMonth('created_at', Carbon::now()->month)->count();
-		$vendasAno = Pedido::whereBetween('created_at', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->count();
-
 		return response()->json([
-			"data" => 'Utils::createDataTableResult($request, Pedido::class, $wheres, $columnsToFilter)',
-			"vendaHoje" => $vendasHoje,
-			"vendaSemana" => $vendasSemana,
-			"vendaMes" => $vendasMes,
-			"vendaAno" => $vendasAno
-		]);
-
-		return response()->json([
-			'total_pedidos' => $total_pedidos,
+			"data" => Utils::createDataTableResult($request, Pedido::class, $wheres, $columnsToFilter, null, null, null, $with),
 		]);
 	}
 }

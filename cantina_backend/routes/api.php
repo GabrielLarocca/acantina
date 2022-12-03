@@ -40,6 +40,7 @@ Route::group(['prefix' => 'web'], function () {
 		Route::group(['prefix' => 'pedido'], function () {
 			Route::post('/', [PedidoController::class, 'store']);
 			Route::post('/list', [PedidoController::class, 'list']);
+			Route::post('/checkCupom', [PedidoController::class, 'checkCupom']);
 			Route::get('/{id}', [PedidoController::class, 'get']);
 			Route::delete('/{id}', [PedidoController::class, 'destroy']);
 		});
@@ -92,6 +93,7 @@ Route::group(['prefix' => 'admin'], function () {
 		});
 
 		Route::group(['prefix' => 'relatorio'], function () {
+			Route::get('/relatorioGeral', [AdminRelatorioController::class, 'getRelatorioGeral']);
 			Route::post('/relatorio1', [AdminRelatorioController::class, 'getRelatorio1']);
 			Route::post('/relatorio2', [AdminRelatorioController::class, 'getRelatorio2']);
 		});

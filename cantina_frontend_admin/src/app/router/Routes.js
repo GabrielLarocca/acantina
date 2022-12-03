@@ -17,6 +17,7 @@ import ProdutosEdit from "../pages/dashboard/produtos/ProdutosEdit";
 import CuponsNew from "../pages/dashboard/cupons/CuponsNew";
 import CategoriasIndex from "../pages/dashboard/categorias/CategoriasIndex";
 import CategoriasNew from "../pages/dashboard/categorias/CategoriasNew";
+import RelatorioIndex from "../pages/dashboard/relatorios/RelatoriosIndex";
 
 const Routes = () => {
 	const { isAuthorized } = useSelector(({ auth }) => ({ isAuthorized: auth.user != null }));
@@ -53,6 +54,9 @@ const Routes = () => {
 						{/* categorias crud */}
 						<Route exact path="/categorias" element={<CategoriasIndex />} />
 						<Route exact path="/categorias/new" element={<CategoriasNew />} />
+
+						{/* relatorio */}
+						<Route exact path="/relatorios" element={<RelatorioIndex />} />
 
 						{/* usuario crud */}
 						<Route exact path="/usuarios" element={<UsuariosIndex />} />

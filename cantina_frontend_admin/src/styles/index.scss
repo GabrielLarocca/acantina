@@ -602,3 +602,43 @@ a.btn:hover {
 		border-color: #0f5a3b !important;
 	}
 }
+
+.containerWhite{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	row-gap: 16px;
+}
+
+.whiteBox{
+	display: flex;
+	flex: none;
+	background-color: #fff;
+	border-radius: 8px;
+	height: 150px;
+	width: 150px;
+	padding: 24px;
+	flex-direction: column;
+
+	h3.title{
+		font-family: 'Inter', sans-serif !important;
+		font-style: normal !important;
+		font-weight: 500 !important;
+		font-size: 18px !important;
+		line-height: 20px !important;
+		color: #333333 !important;
+		margin-bottom: 8px !important;
+	}
+
+	h4{
+		font-family: 'Inter', sans-serif !important;
+		font-style: normal  !important;
+		font-weight: 500  !important;
+		font-size: 30px  !important;
+		line-height: 20px  !important;
+		color: #000  !important;
+		align-self: center;
+		margin-top: auto;
+		margin-bottom: auto;
+	}
+}

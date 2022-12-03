@@ -11,7 +11,7 @@ import { formatBRL, validateCartao } from '../../helpers/validation';
 import { Formik } from 'formik';
 import { TextField } from "@material-ui/core";
 import { Spinner } from 'react-bootstrap';
-import { storePedido } from '../../store/ducks/pedido';
+import { checkCupomExist, storePedido } from '../../store/ducks/pedido';
 
 export default function Pagamento() {
 	const [carrinho, setCarrinho] = useState([]);
@@ -19,6 +19,7 @@ export default function Pagamento() {
 	const [step, setStep] = useState(0);
 	const [refreshCart, setRefreshCart] = useState(0);
 	const [pedidoId, setPedidoId] = useState(0);
+	const [desconto, setDesconto] = useState({});
 
 	const router = useRouter();
 
@@ -29,10 +30,28 @@ export default function Pagamento() {
 		listCart();
 	}, []);
 
+	const onSubmitDesconto = (values, setSubmitting) => {
+		setSubmitting(true);
+
+		checkCupomExist(values).then((res) => {
+			if (res?.status == 200) {
+				if (res.data.errors) {
+					return Swal.fire('Ops!', res?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+				} else {
+					setDesconto(res.data);
+				}
+			}
+		}).catch(({ response }) => {
+			return Swal.fire('Ops!', response?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+		}).finally(() => {
+			setSubmitting(false);
+		})
+	}
+
 	const onSubmit = (values, setSubmitting) => {
 		//TODO LOGICA DO GATEWAY DE PAGAMENTO
 
-		storePedido({ ord_type_payment: 'credit-card' }).then((res) => {
+		storePedido({ ord_type_payment: 'credit-card', cupom: desconto?.cou_code }).then((res) => {
 			if (res?.status == 200) {
 				if (res.data.errors) {
 					return Swal.fire('Ops!', res?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
@@ -47,7 +66,7 @@ export default function Pagamento() {
 	}
 
 	const onSubmitRetirada = () => {
-		storePedido({ ord_type_payment: 'retirada' }).then((res) => {
+		storePedido({ ord_type_payment: 'retirada', cupom: desconto?.cou_code }).then((res) => {
 			if (res?.status == 200) {
 				if (res.data.errors) {
 					return Swal.fire('Ops!', res?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
@@ -131,18 +150,40 @@ export default function Pagamento() {
 
 			<hr className={styles.line} />
 
-			{/* <div className={styles.descontoContainer}>
-				<p>Desconto</p>
+			<Formik initialValues={{ cupom: "" }} onSubmit={(values, { setSubmitting }) => onSubmitDesconto(values, setSubmitting)}>
+				{({ values, handleChange, handleSubmit, isSubmitting, setFieldValue }) => (
+					<form noValidate={true} autoComplete="off" style={{ display: 'flex', flexDirection: 'column', height: '100%' }} onSubmit={handleSubmit}>
+						<div className={styles.descontoContainer}>
+							<p>Desconto</p>
 
-				<p>-{formatBRL(12.90)}</p>
-			</div> */}
+							{desconto ?
+								<p>-{formatBRL(desconto?.cou_discount)}</p>
+								:
+								<div className='d-flex'>
+									<div style={{ width: 160, marginRight: 12 }}>
+										<TextField variant='outlined' placeholder="Digite o códido" name="cupom" margin="none" onChange={(e) => setFieldValue('cupom', e.target.value.toUpperCase())} value={values.cupom} />
+									</div>
+
+									<button type="submit" disabled={isSubmitting} className={styles.buttonP} style={{ width: 100, height: 47 }}>
+										Procurar
+
+										{isSubmitting && (
+											<Spinner color="#FFF" size="sm" animation="border" className={"spinner ml-3"} />
+										)}
+									</button>
+								</div>
+							}
+						</div>
+					</form>
+				)}
+			</Formik>
 
 			<hr className={styles.line} />
 
 			<div className={styles.totalContainer}>
 				<p>Total</p>
 
-				<p>{formatBRL(total)}</p>
+				<p>{formatBRL(total - desconto?.cou_discount)}</p>
 			</div>
 
 			<button className={styles.buttonP} onClick={handleStep}>Continuar</button>
@@ -172,11 +213,11 @@ export default function Pagamento() {
 
 			<hr className={styles.line} />
 
-			{/* <div className={styles.descontoContainer}>
+			<div className={styles.descontoContainer}>
 				<p>Desconto</p>
 
 				<p>-{formatBRL(12.90)}</p>
-			</div> */}
+			</div>
 
 			<hr className={styles.line} />
 
