@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Helpers\StripeUtil;
 use App\Http\Controllers\Controller;
 use App\Models\Carrinho;
 use Illuminate\Http\Request;
@@ -99,12 +100,17 @@ class AuthController extends Controller {
 			return response()->json(['errors' => $errors]);
 		}
 
+
+
 		$obj = new Usuario();
 
 		$obj->usr_name = $request->usr_name;
 		$obj->email = $request->email;
 		$obj->password = bcrypt($request->password);
 		$obj->usr_active = 1;
+
+		$stripe_id = StripeUtil::createCustomer($obj);
+		$obj->usr_stripe_id = !empty($stripe_id) ? $stripe_id : null;
 
 		$obj->save();
 

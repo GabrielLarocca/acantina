@@ -1,6 +1,5 @@
 import Header from '../../components/Header'
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Pagamento.module.css'
 import { useEffect, useState } from 'react';
@@ -20,10 +19,14 @@ export default function Pagamento() {
 	const [refreshCart, setRefreshCart] = useState(0);
 	const [pedidoId, setPedidoId] = useState(0);
 	const [desconto, setDesconto] = useState({});
+	const [stripeSecret, setStripeSecret] = useState('');
+	const [loading, setLoading] = useState(true);
+	const [modalAdd, setModalAdd] = useState(false);
 
 	const router = useRouter();
 
 	const { user } = useSelector((state) => state.user);
+
 	// const isMobile = useMediaQuery({ query: "(max-width: 991px)" });
 
 	useEffect(() => {
@@ -48,20 +51,21 @@ export default function Pagamento() {
 		})
 	}
 
-	const onSubmit = (values, setSubmitting) => {
-		//TODO LOGICA DO GATEWAY DE PAGAMENTO
+	const onSubmit = () => {
+		setLoading(true);
 
-		storePedido({ ord_type_payment: 'credit-card', cupom: desconto?.cou_code }).then((res) => {
+		storePedido({ ord_type_payment: 'credit-card' }).then((res) => {
 			if (res?.status == 200) {
 				if (res.data.errors) {
 					return Swal.fire('Ops!', res?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
 				} else {
-					setRefreshCart(prev => prev + 1);
-					setStep(3);
+					location.replace(res.data.stripe.checkout.url);
 				}
 			}
 		}).catch(({ response }) => {
 			return Swal.fire('Ops!', response?.data?.errors?.[0] ?? 'Ocorreu um erro no nosso servidor, entre em contato com o suporte.', 'error');
+		}).finally(() => {
+			setLoading(false);
 		});
 	}
 
@@ -129,7 +133,7 @@ export default function Pagamento() {
 
 	function Botao(props) {
 		return (
-			<div onClick={props.retirada ? onSubmitRetirada : handleStep} className={styles.buttonInicial}>
+			<div onClick={props.retirada ? onSubmitRetirada : onSubmit} className={styles.buttonInicial}>
 				<p>{props.title}</p>
 				<RiArrowRightSLine color='#787A7C' size={20} />
 			</div>
@@ -156,7 +160,7 @@ export default function Pagamento() {
 						<div className={styles.descontoContainer}>
 							<p>Desconto</p>
 
-							{desconto ?
+							{desconto?.cou_discount ?
 								<p>-{formatBRL(desconto?.cou_discount)}</p>
 								:
 								<div className='d-flex'>
@@ -183,7 +187,7 @@ export default function Pagamento() {
 			<div className={styles.totalContainer}>
 				<p>Total</p>
 
-				<p>{formatBRL(total - desconto?.cou_discount)}</p>
+				<p>{formatBRL(total - (desconto?.cou_discount || 0))}</p>
 			</div>
 
 			<button className={styles.buttonP} onClick={handleStep}>Continuar</button>

@@ -34,6 +34,7 @@ const Routes = () => {
 				(
 					<>
 						<Route exact path="/dashboard" element={<Navigate to={'/pedidos'} />} />
+						<Route exact path="/" element={<Navigate to={'/pedidos'} />} />
 
 						{/* <Route exact path="/dashboard" element={<Dashboard />} /> */}
 

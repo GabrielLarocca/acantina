@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\CarrinhoController;
 use App\Http\Controllers\Web\CategoriaController;
 use App\Http\Controllers\Web\ProdutosController;
 use App\Http\Controllers\Web\PedidoController;
+use App\Http\Controllers\Web\WebhookController;
 
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\CategoriaController as AdminCategoriaController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\Admin\UsuarioController as AdminUsuarioController;
 use App\Http\Controllers\Admin\CupomController as AdminCupomController;
 use App\Http\Controllers\Admin\PedidoController as AdminPedidoController;
 use App\Http\Controllers\Admin\RelatorioController as AdminRelatorioController;
+
+Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
 
 Route::group(['prefix' => 'web'], function () {
 	Route::post('/auth', [AuthController::class, 'auth']);

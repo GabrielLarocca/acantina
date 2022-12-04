@@ -1,0 +1,66 @@
+.checkoutForm p{
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 100%;
+    color: #132A30;
+    margin-bottom: 25px;
+}
+  
+.checkoutForm label {
+	color: #6b7c93;
+	font-weight: 300;
+	letter-spacing: 0.025em;
+}
+
+.checkoutForm input, .StripeElement {
+	display: block;
+	margin: 10px 0 20px 0;
+	max-width: 500px;
+	padding: 10px 14px;
+	font-size: 1em;
+	font-family: "Source Code Pro", monospace;
+	box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px,rgba(0, 0, 0, 0.0196078) 0px 1px 0px;
+	border: 0;
+	outline: 0;
+	border-radius: 4px;
+	background: white;
+}
+  
+.checkoutForm input::placeholder {
+	color: #aab7c4;
+}
+
+.checkoutForm input:focus, .StripeElement--focus {
+	box-shadow: rgba(50, 50, 93, 0.109804) 0px 4px 6px,rgba(0, 0, 0, 0.0784314) 0px 1px 3px;
+	-webkit-transition: all 150ms ease;
+	transition: all 150ms ease;
+}
+
+.checkoutForm .StripeElement.IdealBankElement, .StripeElement.FpxBankElement, .StripeElement.PaymentRequestButton {
+	padding: 0;
+}
+
+.checkoutForm .StripeElement.PaymentRequestButton {
+	height: 40px;
+}
+
+.checkoutForm{
+	width: 500px;
+}
+
+@media screen and (max-width: 600px) {
+	.checkoutForm{
+		height: 100vh;
+		width: 100vw;
+		padding: 40px;
+	}	
+
+	.closeCreditCard{
+		margin-bottom: 25%;
+	}
+
+	.payButton{
+		display: block !important;
+		width: 100% !important;
+	}
+}

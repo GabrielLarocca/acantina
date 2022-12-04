@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\StripeUtil;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
@@ -62,6 +63,12 @@ class ProdutoController extends Controller {
 
 			$obj->pro_image_path = $path;
 		}
+
+		$obj->save();
+
+		$responseProductStripe = StripeUtil::createStripePriceProduct($obj);
+
+		$obj->pro_stripe_price_id = $responseProductStripe->id;
 
 		$obj->save();
 

@@ -60,9 +60,19 @@ export default class BetterPedidoTable extends Component {
 		});
 
 		this.props.fetchEvent(event).then(res => {
+			let array = [];
+
+			res.data.data.data.map((data) => {
+				if (data.ord_state_payment === "não pago" && data.ord_type_payment === 'credit-card') {
+					return;
+				} else {
+					array.push(data)
+				}
+			});
+
 			this.setState({
 				...this.state,
-				data: res.data.data.data,
+				data: array,
 				totalRecords: res.data.data.total,
 				first: res.data.data.from - 1,
 				last: res.data.data.to - 1,
@@ -161,6 +171,10 @@ export default class BetterPedidoTable extends Component {
 	bodyTableComponent = (pedido) => {
 		const nf = JSON.parse(pedido?.ord_nf);
 
+		if (pedido.ord_state_payment === "não pago" && pedido.ord_type_payment === 'credit-card') {
+			return <></>
+		}
+
 		return (
 			<div className="cardPedido" onClick={() => this.setState({ pedidoState: { pedido, nf } })}>
 				<h3>Pedido #{pedido?.id}</h3>
@@ -238,11 +252,13 @@ export default class BetterPedidoTable extends Component {
 									</div>
 								))}
 
-								<div className="footerDetalhe" style={{ height: 'auto' }}>
-									<p>Cupom</p>
+								{this.state.pedidoState?.nf?.desconto?.cou_discount ?
+									<div className="footerDetalhe" style={{ height: 'auto' }}>
+										<p>Cupom</p>
 
-									<p className="price">- {formatBRL(this.state.pedidoState?.nf?.desconto?.cou_discount)}</p>
-								</div>
+										<p className="price">- {formatBRL(this.state.pedidoState?.nf?.desconto?.cou_discount)}</p>
+									</div>
+									: null}
 
 								<div className="footerDetalhe">
 									<p>Total</p>

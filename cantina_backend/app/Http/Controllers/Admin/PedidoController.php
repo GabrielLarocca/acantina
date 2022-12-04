@@ -25,7 +25,6 @@ class PedidoController extends Controller {
 		return response()->json(["data" => Utils::createDataTableResult($request, Pedido::class, $wheres, $columnsToFilter, null, null, null, $with)]);
 	}
 
-
 	public function listConcluidos(Request $request) {
 		$columnsToFilter = ['ord_cart_id', 'ord_total', 'ord_user_id', 'ord_state_payment', 'ord_state_order', 'ord_nf'];
 

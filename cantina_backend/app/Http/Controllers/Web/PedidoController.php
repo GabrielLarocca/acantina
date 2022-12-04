@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Helpers\StripeUtil;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -69,6 +70,21 @@ class PedidoController extends Controller {
 			$somaTotalCarrinho = number_format($somaTotalCarrinho - $cupom->cou_discount, 2);
 		}
 
+		$response;
+
+		if ($request->ord_type_payment == "credit-card") {
+			$products = [];
+
+			foreach ($carrinhoProdutos as $produto) {
+				array_push($products, [
+					'price' => $produto->produto->pro_stripe_price_id,
+					'quantity' => $produto->quantity,
+				]);
+			}
+
+			$response = StripeUtil::createSubmit($request->user(), $products);
+		}
+
 		$nfe = [
 			"data" => $carrinhoProdutos,
 			"total" => $somaTotalCarrinho,
@@ -86,8 +102,9 @@ class PedidoController extends Controller {
 		$obj->ord_cart_id = $carrinho->id;
 		$obj->ord_total = $somaTotalCarrinho;
 		$obj->ord_user_id = $request->user()->id;
-		$obj->ord_state_payment = $request->ord_type_payment == "credit-card" ? "pago" : "não pago";
+		$obj->ord_state_payment = "não pago";
 		$obj->ord_state_order = "aguardando";
+		$obj->ord_type_payment = $request->ord_type_payment;
 		$obj->ord_nf = $nfe;
 
 
@@ -96,6 +113,8 @@ class PedidoController extends Controller {
 		foreach ($carrinhoProdutos as $carrinhoProduto) {
 			$carrinhoProduto->delete();
 		}
+
+		$obj->stripe = $response;
 
 		return response()->json($obj);
 	}
