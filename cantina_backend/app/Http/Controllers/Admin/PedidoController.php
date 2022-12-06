@@ -71,7 +71,7 @@ class PedidoController extends Controller {
 	}
 
 	public function update(Request $request) {
-		$obj = Pedido::where(['id' => $request->id])->firstOrFail();
+		$obj = Pedido::where(['id' => $request->id])->with('usuario')->firstOrFail();
 
 		if (isset($request->ord_state_order)) {
 			$obj->ord_state_order = $request->ord_state_order;
@@ -81,9 +81,45 @@ class PedidoController extends Controller {
 			$obj->ord_state_payment = $request->ord_state_payment;
 		}
 
+		// $this->sendNotification($obj->usuario->id);
+
 		$obj->save();
 
 		return response()->json($obj);
+	}
+
+	public function sendNotification($userID) {
+		$SERVER_API_KEY = config('app.firebase_serverapiKey');
+
+		$data = [
+			"to" => '',
+			"notification" => [
+				"title" => 'Pedido pronto!',
+				"body" => 'Seu pedido está pronto, compareça a cantina para fazer a retirada',
+				"content_available" => true,
+				"priority" => "high",
+			]
+		];
+
+		$dataString = json_encode($data);
+
+		$headers = [
+			'Authorization: key=' . $SERVER_API_KEY,
+			'Content-Type: application/json',
+		];
+
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+		$response = curl_exec($ch);
+
+		Log::info($response);
 	}
 
 	public function destroy(Request $request, $id) {

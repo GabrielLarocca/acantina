@@ -12,7 +12,6 @@ export default function UsuariosIndex() {
 				<Column field="usr_name" header="Nome" />
 				<Column field="email" header="Email" />
 				<Column field="created_at_format" header="Criado em" />
-				<Column field="updated_at_format" header="Atualizado em" />
 			</BetterDataTable>
 		</Layout>
 	)

@@ -55,6 +55,9 @@ class AuthController extends Controller {
 	private function authenticateUser($user) {
 		$token = $user->createToken('usuario', ['api:web'])->plainTextToken;
 
+		$user->device_token = $token;
+		$user->save();
+
 		return response()->json(['user' => $user, 'token' => $token]);
 	}
 
@@ -99,8 +102,6 @@ class AuthController extends Controller {
 
 			return response()->json(['errors' => $errors]);
 		}
-
-
 
 		$obj = new Usuario();
 

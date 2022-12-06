@@ -25,7 +25,9 @@ class ProdutoController extends Controller {
 	}
 
 	public function get(Request $request, $id) {
-		return response()->json(Produto::where(["pro_active" => 1, "id" => $id])->with('categoria')->firstOrFail());
+		$produto = Produto::where(["pro_active" => 1, "id" => $id])->with('categoria')->firstOrFail();
+		return StripeUtil::editStripePriceProduct($produto);
+		// return response()->json(Produto::where(["pro_active" => 1, "id" => $id])->with('categoria')->firstOrFail());
 	}
 
 	public function store(Request $request) {
@@ -110,6 +112,9 @@ class ProdutoController extends Controller {
 
 			$obj->pro_image_path = $path;
 		}
+
+		$responseProductStripe = StripeUtil::editStripePriceProduct($obj);
+		$obj->pro_stripe_price_id = $responseProductStripe->id;
 
 		$obj->save();
 

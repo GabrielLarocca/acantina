@@ -2,7 +2,7 @@ import Header from '../../components/Header'
 import { RiArrowLeftSLine } from 'react-icons/ri';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Spinner } from 'react-bootstrap';
 import { Formik } from "formik";
 import { TextField } from "@material-ui/core";

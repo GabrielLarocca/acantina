@@ -23,12 +23,12 @@ Router.events.on('routeChangeError', () => {
 
 function MyApp({ Component, pageProps }) {
 	const store = useStore((state) => state);
-
 	return (
 		<>
 			<Head>
 				<link rel='stylesheet' type='text/css' href='/css/nprogress.css' />
 			</Head>
+
 			<PersistGate persistor={store.__persistor} loading={""}>
 				<AxiosSetup store={store}>
 					<Component {...pageProps} />
@@ -36,7 +36,6 @@ function MyApp({ Component, pageProps }) {
 			</PersistGate>
 		</>
 	)
-
 }
 
 export default storeWrapper.withRedux(MyApp);

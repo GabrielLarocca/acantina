@@ -33,6 +33,15 @@ return [
 
 	'cipher' => 'AES-256-CBC',
 
+	'firebase_serverapiKey' => env('FIREBASE_SERVERAPIKEY'),
+	'firebase_apiKey' => env('FIREBASE_APIKEY'),
+	'firebase_authDomain' => env('FIREBASE_AUTHDOMAIN'),
+	'firebase_projectId' => env('FIREBASE_PROJECTID'),
+	'firebase_storageBucket' => env('FIREBASE_STORAGEBUCKET'),
+	'firebase_messagingSenderId' => env('FIREBASE_MESSAGINGSENDERID'),
+	'firebase_appId' => env('FIREBASE_APPID'),
+	'firebase_measurementId' => env('FIREBASE_MEASUREMENTID'),
+
 	'providers' => [
 
 		/*

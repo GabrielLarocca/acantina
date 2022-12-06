@@ -12,8 +12,6 @@ export default function ProdutosIndex() {
 				<Column field="pro_name" header="Nome" />
 				<Column field="pro_description" header="Descrição" />
 				<Column field="categoria.cat_name" header="Categoria" />
-				<Column field="created_at_format" header="Criado em" />
-				<Column field="updated_at_format" header="Atualizado em" />
 			</BetterDataTable>
 		</Layout>
 	)
