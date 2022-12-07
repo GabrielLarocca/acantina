@@ -1,10 +1,6 @@
 let url = "";
 
-if (process.env.NODE_ENV === 'development') {
-	url = "http://localhost:8000";
-} else {
-	url = "https://backend-acantina.up.railway.app";
-}
+url = process.env.PUBLIC_APP_URL;
 
 export const Constants = {
 	url: url,
