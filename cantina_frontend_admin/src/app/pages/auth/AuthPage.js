@@ -76,6 +76,7 @@ function AuthPage(props) {
 			<Col lg={8} md={6} className="p-0 m-0">
 				<div style={{ backgroundImage: 'url(images/backgroundAuth.png)' }} className="background">
 					<div className="">&copy; 2022 A cantina</div>
+					{console.log(process.env)}
 				</div>
 			</Col>
 		</Row>

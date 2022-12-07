@@ -1,6 +1,6 @@
 let url = "";
 
-url = process.env.PUBLIC_APP_URL;
+url = 'https://backend-acantina.up.railway.app';
 
 export const Constants = {
 	url: url,
