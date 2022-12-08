@@ -9,6 +9,7 @@ use App\Models\Admin;
 use App\Helpers\Utils;
 use App\Models\Arquivo;
 use App\Models\Produto;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -29,6 +30,8 @@ class ProdutoController extends Controller {
 	}
 
 	public function store(Request $request) {
+		Artisan::call('storage:link');
+
 		$errors = array();
 
 		$validator = Validator::make($request->all(), [
@@ -76,6 +79,8 @@ class ProdutoController extends Controller {
 	}
 
 	public function update(Request $request) {
+		Artisan::call('storage:link');
+
 		$errors = array();
 
 		$validator = Validator::make($request->all(), [
