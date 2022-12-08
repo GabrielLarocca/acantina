@@ -26,15 +26,18 @@ export default class CategoriasNew extends Component {
 		this.setState(({ submitted: true }));
 
 		create(values).then(res => {
-			if (res.status == 200) {
+			if (res.status == 200 && !res.data.errors) {
 				this.setState({
 					success: !Boolean(res.data.errors),
 				});
 
-
 				return toast('Tudo certo, a categoria foi criada.', { type: "success" });
 			} else {
-				return Swal.fire('Ops', res.data.errors[0] ?? 'Parece que houve um problema. Por favor, entre em contato com o suporte.', 'error');
+				if (res.data.errors[0] == 'The cat name has already been taken.') {
+					return Swal.fire('Ops', 'Essa categoria já existe.', 'error');
+				} else {
+					return Swal.fire('Ops', res.data.errors[0] ?? 'Parece que houve um problema. Por favor, entre em contato com o suporte.', 'error');
+				}
 			}
 		}).catch(() => {
 			return Swal.fire('Ops', 'Parece que houve um problema. Por favor, entre em contato com o suporte.', 'error');

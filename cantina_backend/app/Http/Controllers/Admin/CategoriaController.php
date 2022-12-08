@@ -41,6 +41,12 @@ class CategoriaController extends Controller {
 			return response()->json(['errors' => $errors]);
 		}
 
+		$categoriaJaExiste = Categoria::where(['cat_ativo' => 1, 'cat_name' => $request->cat_name])->first();
+
+		if (isset($categoriaJaExiste)) {
+			array_push($errors, 'Já existe uma categoria com este nome.');
+		}
+
 		$obj = new Categoria();
 
 		$obj->cat_name = $request->cat_name;
