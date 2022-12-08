@@ -6,9 +6,9 @@ import { Column } from "primereact/column";
 import { formatBRL } from "../../../utils/Validation";
 import moment from "moment";
 import { getRelatorioGerais } from "../../../crud/relatorio.crud";
+import BetterDataTableRelatorio from "../../../components/BetterDataTableRelatorio";
 
 export default function RelatoriosIndex() {
-	const [aba, setAba] = useState('Vendas');
 	const [relatorioGerais, setRelatorioGerais] = useState(null);
 
 	useEffect(() => {
@@ -19,7 +19,7 @@ export default function RelatoriosIndex() {
 
 	return (
 		<Layout title={'Relatórios'}>
-			<div className="containerWhite">
+			<div className="containerWhite mb-4">
 				<div className="whiteBox">
 					<h3 className="title">Vendas Hoje</h3>
 					<h4>{relatorioGerais?.vendaHoje}</h4>
@@ -56,28 +56,15 @@ export default function RelatoriosIndex() {
 				</div>
 			</div>
 
+			<BetterDataTableRelatorio fetchEvent={getDataTable} crudButtons={false} idRow={`id`}>
+				<Column field="id" header="ID" />
+				<Column field="usuario.usr_name" header="Cliente" />
+				<Column field="ord_state_order" header="Status de produção" />
+				<Column field="ord_state_payment" header="Status do pagamento" />
 
-			<div className="abas">
-				<div className={aba == 'Vendas' ? 'selected' : ''} onClick={() => setAba('Vendas')}>Vendas</div>
-
-				<div className={aba == 'pedidos' ? 'selected' : ''} onClick={() => setAba('pedidos')}>Pedidos</div>
-			</div>
-
-			{aba == 'Vendas' &&
-				<BetterDataTable btnTitle="pedido" fetchEvent={getDataTable} crudButtons={false} idRow={`id`}>
-					<Column field="id" header="ID" />
-					<Column field="usuario.usr_name" header="Cliente" />
-					<Column field="ord_state_order" header="Status de produção" />
-					<Column field="ord_state_payment" header="Status do pagamento" />
-
-					<Column field="ord_total" header="Valor da venda" body={({ ord_total }) => formatBRL(ord_total)} />
-					<Column field="created_at_format" header="Venda realizada em" />
-				</BetterDataTable>
-			}
-
-			{aba == 'concluido' &&
-				<BetterDataTable btnTitle="pedido" noHeaderNewbtn fetchEvent={getDataTableConcluidos} crudUrl={"/pedidos"} idRow={`id`} />
-			}
+				<Column field="ord_total" header="Valor da venda" body={({ ord_total }) => formatBRL(ord_total)} />
+				<Column field="created_at" header="Venda realizada em" body={({ created_at }) => moment(created_at).format('DD/MM/YYYY HH:mm')} />
+			</BetterDataTableRelatorio>
 		</Layout>
 	)
 };

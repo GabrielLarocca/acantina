@@ -10,7 +10,7 @@ import Loading from "../../../components/Loading";
 import { validateCupom, validateProduto } from "../../../utils/Validation";
 import { formatBRLInput, limparMoeda } from "../../../utils/utils";
 import { toast } from "react-toastify";
-
+import moment from 'moment';
 export default class CuponsNew extends Component {
 	constructor() {
 		super();
@@ -28,6 +28,14 @@ export default class CuponsNew extends Component {
 		this.setState(({ submitted: true }));
 
 		values.cou_discount = limparMoeda(values.cou_discount);
+
+		if (values.cou_initial_date > values.cou_finish_date) {
+			return Swal.fire('Ops', 'A data inicial do cupom não pode vir antes da data final.', 'error');
+		}
+
+		if (values.cou_initial_date < moment().format() || values.cou_finish_date < moment().format()) {
+			return Swal.fire('Ops', 'As datas não podem vir antes de hoje.', 'error');
+		}
 
 		create(values).then(res => {
 			if (res.status == 200) {

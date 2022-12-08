@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { create } from '../../../crud/produto.crud';
 import { FormLabel, TextField } from "@material-ui/core";
-import { Col, Row } from "react-bootstrap";
+import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { ErrorMessage, Formik } from "formik";
 import Swal from "sweetalert2";
 import Layout from "../../../../layout/Layout";
@@ -133,7 +133,12 @@ export default class ProdutosNew extends Component {
 
 											<div className="col-sm-4">
 												<div className="form-group fg-line">
-													<FormLabel>Categoria</FormLabel>
+													<FormLabel>Categoria
+														<OverlayTrigger trigger={['click', 'hover', 'focus']} placement="top" delay={{ show: 250, hide: 400 }}
+															overlay={<Tooltip style={{ zIndex: 10000 }}>Selecione a categoria na qual o produto se encaixa. Ex: 'Coca-Cola' cabe na categoria Bebida.</Tooltip>}>
+															<i className="fas fa-circle-info" style={{ marginLeft: 8 }} color="#ADB5BD" />
+														</OverlayTrigger>
+													</FormLabel>
 
 													<BetterSelect name="pro_category_id" blankOption value={values.pro_category_id} onBlur={handleBlur} onChange={handleChange} placeholder="Categoria *"
 														helperText={touched.pro_category_id && errors.pro_category_id} error={Boolean(touched.pro_category_id && errors.pro_category_id)}>
