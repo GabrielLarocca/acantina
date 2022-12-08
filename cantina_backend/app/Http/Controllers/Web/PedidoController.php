@@ -45,7 +45,9 @@ class PedidoController extends Controller {
 			$cupomUsuario = CupomUsuario::where(['user_id' => $request->user()->id, 'coupon_id' => $cupom->id])->first();
 
 			if ($cupomUsuario) {
-				return response()->json(['errors' => "Não foi possivel aplicar este cupom, ele já foi utilizado."], 422);
+				array_push($errors, "Não foi possivel aplicar este cupom, ele já foi utilizado.");
+
+				return response()->json(['errors' => $errors], 422);
 			} else {
 				$obj = new CupomUsuario();
 
@@ -114,7 +116,9 @@ class PedidoController extends Controller {
 			$carrinhoProduto->delete();
 		}
 
-		$obj->stripe = $response;
+		if (isset($response)) {
+			$obj->stripe = $response;
+		}
 
 		return response()->json($obj);
 	}
@@ -144,12 +148,22 @@ class PedidoController extends Controller {
 	}
 
 	public function checkCupom(Request $request) {
-		$cupom = Cupom::where(['cou_code' => $request->cupom])->firstOrFail();
+		$cupom = Cupom::where(['cou_code' => $request->cupom])->first();
+
+		$errors = array();
+
+		if (!isset($cupom)) {
+			array_push($errors, "Este cupom não existe.");
+
+			return response()->json(['errors' => $errors], 422);
+		}
 
 		$cupomUsuario = CupomUsuario::where(['user_id' => $request->user()->id, 'coupon_id' => $cupom->id])->first();
 
 		if ($cupomUsuario) {
-			return response()->json(['errors' => "Não foi possivel aplicar este cupom, ele já foi utilizado."], 422);
+			array_push($errors, "Não foi possivel aplicar este cupom, ele já foi utilizado.");
+
+			return response()->json(['errors' => $errors], 422);
 		} else {
 			return response()->json($cupom);
 		}

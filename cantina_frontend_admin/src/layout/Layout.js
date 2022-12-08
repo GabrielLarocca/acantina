@@ -17,7 +17,7 @@ function Layout(props) {
 		{ name: 'Pedidos', path: '/pedidos' },
 		{ name: 'Produtos', path: '/produtos' },
 		{ name: 'Cupons', path: '/cupons' },
-		{ name: 'Usuários', path: '/usuarios' },
+		{ name: 'Clientes', path: '/clientes' },
 		{ name: 'Categorias', path: '/categorias' },
 		{ name: 'Relatórios', path: '/relatorios' },
 	]
@@ -36,7 +36,7 @@ function Layout(props) {
 			case 'Cupons':
 				return <Coupon3FillIcon size={16} />
 
-			case 'Usuários':
+			case 'Clientes':
 				return <User3FillIcon size={16} />
 
 			case 'Categorias':

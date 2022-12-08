@@ -25,9 +25,7 @@ class ProdutoController extends Controller {
 	}
 
 	public function get(Request $request, $id) {
-		$produto = Produto::where(["pro_active" => 1, "id" => $id])->with('categoria')->firstOrFail();
-		return StripeUtil::editStripePriceProduct($produto);
-		// return response()->json(Produto::where(["pro_active" => 1, "id" => $id])->with('categoria')->firstOrFail());
+		return response()->json(Produto::where(["pro_active" => 1, "id" => $id])->with('categoria')->firstOrFail());
 	}
 
 	public function store(Request $request) {

@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { create } from '../../../crud/produto.crud';
 import { FormLabel, TextField } from "@material-ui/core";
 import { Col, Row } from "react-bootstrap";
-import { Formik } from "formik";
+import { ErrorMessage, Formik } from "formik";
 import Swal from "sweetalert2";
 import Layout from "../../../../layout/Layout";
 import Loading from "../../../components/Loading";
@@ -44,6 +44,16 @@ export default class ProdutosNew extends Component {
 
 	onSubmit = values => {
 		this.setState(({ submitted: true }));
+
+		if (values.pro_category_id == 'none') {
+			this.setState(({ submitted: false }));
+			return Swal.fire('Ops', 'Você precisa escolher uma categoria para o produto.', 'error');
+		}
+
+		if (!values.photo) {
+			this.setState(({ submitted: false }));
+			return Swal.fire('Ops', 'Você precisa escolher uma imagem para o produto.', 'error');
+		}
 
 		values.pro_price = limparMoeda(values.pro_price);
 		values.photo = values.photo.file;
@@ -129,6 +139,10 @@ export default class ProdutosNew extends Component {
 														helperText={touched.pro_category_id && errors.pro_category_id} error={Boolean(touched.pro_category_id && errors.pro_category_id)}>
 														{this.state.categorias.map((categoria, index) => <option key={index} value={categoria.id}>{categoria.cat_name}</option>)}
 													</BetterSelect>
+													{console.log(values)}
+													<ErrorMessage name="pro_category_id">
+														{error => <p className='MuiFormHelperText-root MuiFormHelperText-contained Mui-error'>{console.log(error)}{error}</p>}
+													</ErrorMessage>
 												</div>
 											</div>
 										</div>
@@ -144,6 +158,10 @@ export default class ProdutosNew extends Component {
 												<label htmlFor="contained-button-file">
 													<span className="btn btn-success d-flex btn-bold align-items-center"><i className={`margin-icon fa fa-camera`}></i>Selecione a imagem</span>
 												</label>
+
+												<ErrorMessage name="photo">
+													{error => <p className='MuiFormHelperText-root MuiFormHelperText-contained Mui-error'>{error}</p>}
+												</ErrorMessage>
 											</Col>
 										</Row>
 

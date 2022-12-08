@@ -19,15 +19,11 @@ export default function Pagamento() {
 	const [refreshCart, setRefreshCart] = useState(0);
 	const [pedidoId, setPedidoId] = useState(0);
 	const [desconto, setDesconto] = useState({});
-	const [stripeSecret, setStripeSecret] = useState('');
 	const [loading, setLoading] = useState(true);
-	const [modalAdd, setModalAdd] = useState(false);
 
 	const router = useRouter();
 
 	const { user } = useSelector((state) => state.user);
-
-	// const isMobile = useMediaQuery({ query: "(max-width: 991px)" });
 
 	useEffect(() => {
 		listCart();

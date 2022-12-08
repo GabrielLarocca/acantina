@@ -6,8 +6,8 @@ import { getDataTable } from "../../../crud/usuario.crud";
 
 export default function UsuariosIndex() {
 	return (
-		<Layout title={'Usuários'}>
-			<BetterDataTable noHeaderNewbtn btnTitle="usuario" fetchEvent={getDataTable} crudUrl={"/usuarios"} idRow={`id`}>
+		<Layout title={'Clientes'}>
+			<BetterDataTable noHeaderNewbtn btnTitle="cliente" fetchEvent={getDataTable} crudUrl={"/cliente"} idRow={`id`}>
 				<Column field="id" header="ID" />
 				<Column field="usr_name" header="Nome" />
 				<Column field="email" header="Email" />

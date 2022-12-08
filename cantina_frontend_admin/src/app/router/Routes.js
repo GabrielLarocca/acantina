@@ -60,7 +60,7 @@ const Routes = () => {
 						<Route exact path="/relatorios" element={<RelatorioIndex />} />
 
 						{/* usuario crud */}
-						<Route exact path="/usuarios" element={<UsuariosIndex />} />
+						<Route exact path="/clientes" element={<UsuariosIndex />} />
 
 						<Route exact path="/logout" element={<Logout />} />
 					</>

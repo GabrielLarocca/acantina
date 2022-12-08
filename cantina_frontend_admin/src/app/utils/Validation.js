@@ -52,7 +52,6 @@ export const validateProduto = (values) => {
 	map.set('pro_description', 'Descrição');
 	map.set('pro_category_id', 'Categoria');
 	map.set('pro_price', 'Preço');
-	//map.set('pro_image', 'Imagem');
 
 	let errors = createFormikValidation(map, values);
 
